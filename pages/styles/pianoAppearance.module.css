@@ -1,0 +1,47 @@
+.pianoContainer {
+  margin: 0;
+  width: calc(100% - 40px);
+  height: 400px;
+  overflow: auto;
+}
+
+#pianoWrap * {
+  box-sizing: border-box;
+  font-family: Arial;
+  user-select: none;
+  box-shadow: solid 3px #111;
+}
+
+#pianoWrap {
+  margin: 0 auto;
+  height: 330px;
+  width: calc(46px * 18);
+  display: flex;
+  justify-content: center;
+  word-break: break-word;
+}
+
+#pianoWrap > div {
+  position: relative;
+}
+
+.whiteKey.pressing {
+  border-bottom: solid rgb(230, 230, 230) 5px;
+  border-left: solid rgb(109, 109, 76) 2px;
+  border-right: solid rgb(109, 109, 76) 2px;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+}
+
+.blackKey.pressing {
+  border-bottom: solid rgb(54, 54, 54) 4px;
+  box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.4);
+  background: linear-gradient(to bottom, rgb(24, 24, 24) 100%, white);
+}
+
+.keyLabel {
+  position: absolute;
+  display: block;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}

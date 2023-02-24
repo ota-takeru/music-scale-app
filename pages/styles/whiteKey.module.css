@@ -1,0 +1,28 @@
+.whiteKey {
+  width: 52px;
+  height: 320px;
+  background-color: white;
+  border: solid 1px #666;
+  z-index: 1;
+  box-shadow: 0 7px 3px 0 rgba(0, 0, 0, 0.3);
+  color: black;
+}
+.whiteKey:hover {
+  background: rgb(250, 209, 151);
+}
+
+.whiteKey[isdown="true"] {
+  background: rgb(255, 136, 0);
+}
+
+.whiteKey[isprimarykey="true"][isdown="true"] {
+  background: yellow;
+}
+
+.keyLabel {
+  position: absolute;
+  display: block;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+}
