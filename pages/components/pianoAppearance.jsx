@@ -1,45 +1,46 @@
-import Styles from "../styles/pianoAppearance.module.css";
-import { useEffect, useState } from "react";
-import WhiteKey from "./whiteKey";
-import BlackKey from "./blackKey";
-import React from "react";
+import Styles from '../styles/pianoAppearance.module.css'
+import { useEffect, useState } from 'react'
+import WhiteKey from './whiteKey'
+import BlackKey from './blackKey'
+import React from 'react'
 // import { useReseted } from "../hooks/useReseted";
 
 const PianoAppearance = (props) => {
-  
-
-  const finaldata = props.finaldata;
-  const setFinaldata = props.setFinaldata;
-  const primaryKey = props.primaryKey;
-  const setPrimaryKey = props.setPrimaryKey;
+  const finaldata = props.finaldata
+  const setFinaldata = props.setFinaldata
+  const primaryKey = props.primaryKey
+  const setPrimaryKey = props.setPrimaryKey
 
   const keyList = [
-    "A",
-    "A#",
-    "B",
-    "C",
-    "C#",
-    "D",
-    "D#",
-    "E",
-    "F",
-    "F#",
-    "G",
-    "G#",
-  ];
-  const setReseted = props.setReseted;
+    'A',
+    'A#',
+    'B',
+    'C',
+    'C#',
+    'D',
+    'D#',
+    'E',
+    'F',
+    'F#',
+    'G',
+    'G#',
+  ]
+  const setReseted = props.setReseted
   const updatePrimaryKey = () => {
     setPrimaryKey(
-      primaryKey.map((item, index) => (index === keyList.findIndex(item => item === finaldata.key)) ? item = "true" : item = "false")
+      primaryKey.map((item, index) =>
+        index === keyList.findIndex((item) => item === finaldata.key)
+          ? (item = 'true')
+          : (item = 'false')
+      )
     )
-    
-  };  
+  }
   useEffect(() => {
     if (Object.values(finaldata.key)) {
-      updatePrimaryKey();
+      updatePrimaryKey()
       // useReseted(false);
     }
-  }, [finaldata]);
+  }, [finaldata])
 
   return (
     <div id={Styles.pianoContainer}>
@@ -284,11 +285,9 @@ const PianoAppearance = (props) => {
           finaldata={finaldata}
           setFinaldata={setFinaldata}
         />
-        
       </div>
     </div>
-  );
+  )
+}
 
-};
-
-export default PianoAppearance;
+export default PianoAppearance

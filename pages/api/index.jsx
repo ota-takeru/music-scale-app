@@ -1,11 +1,11 @@
-import supabase from "@/utils/supabase";
+import supabase from '@/utils/supabase'
 
 export const fetchKey = async (key, scale) => {
-  const { data, error } = await supabase.from('key').select()
-  console.log(data);
-  return data;
-  }
-
+  const data = {}
+  // const { data, error } = await supabase.from('key-scale').select()
+  console.log(data)
+  return data
+}
 
 export const fetchKeyWithNote = async (array) => {
   // console.log(array);

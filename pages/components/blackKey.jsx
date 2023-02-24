@@ -1,30 +1,30 @@
-import Styles from "../styles/blackKey.module.css";
-import { useEffect, useState } from "react";
-import React from "react";
+import Styles from '../styles/blackKey.module.css'
+import { useEffect, useState } from 'react'
+import React from 'react'
 
 const BlackKey = (props) => {
-  const [down, setDown] = useState("false");
-  const setFinaldata = props.setFinaldata;
-  const finaldata = props.finaldata;
-  const n = props.n;
+  const [down, setDown] = useState('false')
+  const setFinaldata = props.setFinaldata
+  const finaldata = props.finaldata
+  const n = props.n
   const pressed = (e) => {
-    if (down === "false") {
-      setDown("true");
+    if (down === 'false') {
+      setDown('true')
       setFinaldata((prev) => ({
         ...prev,
-        [Object.keys(finaldata)[n + 2]]: "true",
-      }));
+        [Object.keys(finaldata)[n + 2]]: 'true',
+      }))
     } else {
-      setDown("false");
+      setDown('false')
       setFinaldata((prev) => ({
         ...prev,
-        [Object.keys(finaldata)[n + 2]]: "false",
-      }));
+        [Object.keys(finaldata)[n + 2]]: 'false',
+      }))
     }
-  };
+  }
   useEffect(() => {
-    setDown(props.isdown);
-  }, [props.isdown]);
+    setDown(props.isdown)
+  }, [props.isdown])
 
   return (
     <div
@@ -35,6 +35,6 @@ const BlackKey = (props) => {
     >
       <span className={Styles.keyLabel}>{props.label}</span>
     </div>
-  );
-};
-export default BlackKey;
+  )
+}
+export default BlackKey
