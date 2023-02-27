@@ -49,7 +49,6 @@ const PianoRoll = (props) => {
       )
     setFinaldata({ key: key, scale: scale, ...newFinaldata })
     setPrimaryKey(primaryKey.fill('false'))
-    console.log(primaryKey)
   }
 
   return (

@@ -24,7 +24,7 @@ const PianoAppearance = (props) => {
     'G',
     'G#',
   ]
-  const setReseted = props.setReseted
+
   const updatePrimaryKey = () => {
     setPrimaryKey(
       primaryKey.map((item, index) =>
@@ -35,9 +35,7 @@ const PianoAppearance = (props) => {
     )
   }
   useEffect(() => {
-    if (finaldata.key) {
       updatePrimaryKey()
-    }
   }, [finaldata.key])
 
   return (
