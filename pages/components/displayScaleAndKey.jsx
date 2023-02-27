@@ -8,7 +8,7 @@ const DisplayScaleAndKey = (props) => {
 
   const fetchData = async () => {
     //キーボードのデータを配列として受けとり、それを元にfetchKeyWithNoteを呼び出す
-    const result = await fetchKeyWithNote(props.array)
+    const result = await fetchKeyWithNote(array)
     if (!result || Object.values(result).length === 0) {
       setDisplayResult([])
     } else {

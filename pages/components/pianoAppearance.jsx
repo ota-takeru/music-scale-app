@@ -38,7 +38,7 @@ const PianoAppearance = (props) => {
     if (finaldata.key) {
       updatePrimaryKey()
     }
-  }, [finaldata])
+  }, [finaldata.key])
 
   return (
     <div id={Styles.pianoContainer}>
