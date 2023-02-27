@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import Select from 'react-select'
 import dynamic from 'next/dynamic'
 
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
@@ -24,7 +23,6 @@ const SelectKey = (props) => {
   const handleChange = (selectedOption) => {
     setKey(selectedOption.value)
     props.setSelectedKey(selectedOption.value)
-    // props.submit();
   }
   const customStyles = {
     control: (base, state) => ({
@@ -41,8 +39,9 @@ const SelectKey = (props) => {
       ...base,
       zIndex: 3,
     }),
+    
   }
-  // props.setSelectedKey = key;
+
   if (typeof document !== 'undefined') {
     return (
       <>

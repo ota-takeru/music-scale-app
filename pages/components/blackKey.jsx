@@ -12,14 +12,17 @@ const BlackKey = (props) => {
       setDown('true')
       setFinaldata((prev) => ({
         ...prev,
-        [Object.keys(finaldata)[n + 2]]: 'true',
+        [Object.keys(finaldata)[n + 2]]: true,
       }))
     } else {
       setDown('false')
       setFinaldata((prev) => ({
         ...prev,
-        [Object.keys(finaldata)[n + 2]]: 'false',
+        [Object.keys(finaldata)[n + 2]]: false,
       }))
+    }
+    if (props.isPrimaryKey === true) {
+      setPrimaryKey(primaryKey.map((item) => (item = false)))
     }
   }
   useEffect(() => {

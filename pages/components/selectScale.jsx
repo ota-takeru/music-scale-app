@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import Select from 'react-select'
 
 import dynamic from 'next/dynamic'
 
@@ -20,7 +19,6 @@ const SelectScale = (props) => {
   const handleChange = (selectedOption) => {
     setScale(selectedOption.value)
     props.setSelectedScale(selectedOption.value)
-    // props.submit();
   }
   const customStyles = {
     control: (base, state) => ({

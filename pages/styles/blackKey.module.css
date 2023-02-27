@@ -5,21 +5,28 @@
   margin-left: -18px;
   margin-right: -18px;
   z-index: 2;
-  box-shadow: 2px 1px 5px 1px rgba(0, 0, 0, 0.4);
+  box-shadow: 1px 2px 7px 1px rgba(0, 0, 0, 0.4);
   color: white;
   text-align: center;
-  border: 1px solid #666;
+  border: 1px solid #999;
+  border-radius: 0 0 5px 5px;
 }
 
 .blackKey:hover {
+  color: #333;
   background: rgb(250, 209, 151);
+  /* border: solid 3px #666; */
+  /* border-radius: 0 0 10px 10px; */
+  box-shadow: 0 0 0 0 ;
+  border: 0;
 }
 
 .blackKey[isdown="true"] {
   background: rgb(255, 136, 0);
 }
 
-.blackKey[isprimarykey="true"] {
+.blackKey[isdown="true"][isprimarykey="true"] {
+  color: #333;
   background: yellow;
 }
 

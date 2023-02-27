@@ -3,7 +3,6 @@ import PianoAppearance from './pianoAppearance'
 import styled from 'styled-components'
 import { HiOutlineRefresh } from 'react-icons/hi'
 import { IconContext } from 'react-icons/lib'
-// import { useReseted } from "../hooks/useReseted";
 
 const Button = styled.button`
   width: 80px;
@@ -14,13 +13,14 @@ const Button = styled.button`
   color: white;
   border: none;
   cursor: pointer;
-  transition: 0.1s ease-in-out;
+  transition: 0.1s ease;
+  box-shadow: 2px 2px 6px 1px #ddd;
   &:hover {
     background-color: #aaa;
-    border: 2px solid black;
+    border: 2px solid #999;
   }
   &:active {
-    background-color: #1b5e20;
+    background-color: orange;
   }
 `
 
@@ -41,22 +41,15 @@ const PianoRoll = (props) => {
     'false',
   ])
 
-  // const reseted = useReseted("false");
-  const useReset = () => {
-    if (reseted === 'false') {
-      const { [Object.keys(finaldata)[2]]: firstItem, ...rest } = finaldata
+
+  const Reset = () => {
+      const { key: key, scale: scale, ...rest } = finaldata
       const newFinaldata = Object.fromEntries(
-        Object.entries(rest).map(([key, value]) => [key, 'false'])
+        Object.entries(rest).map(([key, value]) => [key, false])
       )
-      setFinaldata({ ...newFinaldata, [Object.keys(finaldata)[0]]: firstItem })
-      // const [firstKey, ...otherKeys] = Object.keys(finaldata);
-      // const newfinaldata = {
-      //   [firstKey]: finaldata[firstKey], ...otherKeys.map(key => [key, false])
-      // };
-      // setFinaldata(newfinaldata);
-      // console.log(reseted);
-    }
-    // useReseted("true");
+    setFinaldata({ key: key, scale: scale, ...newFinaldata })
+    setPrimaryKey(primaryKey.fill('false'))
+    console.log(primaryKey)
   }
 
   return (
@@ -66,10 +59,9 @@ const PianoRoll = (props) => {
         setPrimaryKey={setPrimaryKey}
         finaldata={props.finaldata}
         setFinaldata={props.setFinaldata}
-        // reseted = {reseted}
       />
 
-      <Button onClick={useReset}>
+      <Button onClick={Reset}>
         <IconContext.Provider value={{ size: '1.5em' }}>
           <HiOutlineRefresh />
         </IconContext.Provider>
