@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react'
-import SelectKey from './components/selectKey'
-import SelectScale from './components/selectScale'
-import PianoRoll from './components/pianoRoll'
-import SubContainer from './components/subContainer'
-import Container from './components/container'
+import SelectKey from '../components/selectKey'
+import SelectScale from '../components/selectScale'
+import PianoRoll from '../components/pianoRoll'
+import SubContainer from '../components/subContainer'
+import Container from '../components/container'
 import { useState } from 'react'
-import { fetchKey } from './api/index'
+import { fetchKey } from '../api/index'
 // import Guitar from "./components/guitar";
-import DisplayScaleAndKey from './components/displayScaleAndKey'
+import DisplayScaleAndKey from '../components/displayScaleAndKey'
 import styled from 'styled-components'
 
 const Button = styled.input`

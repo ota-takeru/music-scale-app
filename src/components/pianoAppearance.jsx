@@ -36,7 +36,7 @@ const PianoAppearance = (props) => {
   }
   useEffect(() => {
       updatePrimaryKey()
-  }, [finaldata.key])
+  }, [finaldata.key, finaldata.key])
 
   return (
     <div id={Styles.pianoContainer}>

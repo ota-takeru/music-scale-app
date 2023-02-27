@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write \"./pages/**/*.{js,jsx}\""
+    "format": "prettier --write \"./pages/**/*.{js,jsx}\"",
+    "debug": "node --inspect=0.0.0.0:9229 node_modules/next/dist/bin/next"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.8.0",
