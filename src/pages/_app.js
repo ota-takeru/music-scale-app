@@ -1,4 +1,6 @@
 import React from 'react'
+import { Analytics } from '@vercel/analytics/react'
+
 export default function App({ Component, pageProps }) {
   React.useEffect(() => {
     // Remove the server-side injected CSS.
@@ -7,5 +9,11 @@ export default function App({ Component, pageProps }) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])
-  return <Component {...pageProps} />
+
+  return (
+    <>
+      <Component {...pageProps} />
+      <Analytics />
+    </>
+  )
 }

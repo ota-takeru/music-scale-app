@@ -29,13 +29,13 @@ const PianoAppearance = (props) => {
     setPrimaryKey(
       primaryKey.map((item, index) =>
         index === keyList.findIndex((item) => item === finaldata.key)
-          ? (item = "true")
-          : (item = "false")
-      ) 
+          ? (item = 'true')
+          : (item = 'false')
+      )
     )
   }
   useEffect(() => {
-      updatePrimaryKey()
+    updatePrimaryKey()
   }, [finaldata.key, finaldata.key])
 
   return (
@@ -80,7 +80,7 @@ const PianoAppearance = (props) => {
           n={6}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
-        />  
+        />
         <WhiteKey
           isdown={finaldata.e.toString()}
           isPrimaryKey={Object.values(primaryKey)[7]}
@@ -90,8 +90,8 @@ const PianoAppearance = (props) => {
           n={7}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
-        />  
-        <WhiteKey 
+        />
+        <WhiteKey
           isdown={finaldata.f.toString()}
           isPrimaryKey={Object.values(primaryKey)[8]}
           setPrimaryKey={setPrimaryKey}
@@ -100,7 +100,7 @@ const PianoAppearance = (props) => {
           n={8}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
-        />  
+        />
         <BlackKey
           isdown={finaldata.f_sharp.toString()}
           isPrimaryKey={Object.values(primaryKey)[9]}
@@ -110,7 +110,7 @@ const PianoAppearance = (props) => {
           n={9}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
-        />  
+        />
         <WhiteKey
           isdown={finaldata.g.toString()}
           isPrimaryKey={Object.values(primaryKey)[10]}
@@ -140,7 +140,7 @@ const PianoAppearance = (props) => {
           n={0}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
-        />  
+        />
         <BlackKey
           isdown={finaldata.a_sharp.toString()}
           isPrimaryKey={Object.values(primaryKey)[1]}
@@ -150,7 +150,7 @@ const PianoAppearance = (props) => {
           n={1}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
-        />  
+        />
         <WhiteKey
           isdown={finaldata.b.toString()}
           isPrimaryKey={Object.values(primaryKey)[2]}
@@ -161,8 +161,6 @@ const PianoAppearance = (props) => {
           finaldata={finaldata}
           setFinaldata={setFinaldata}
         />
-       
-      
       </div>
     </div>
   )

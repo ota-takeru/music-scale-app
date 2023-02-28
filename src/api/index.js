@@ -12,24 +12,25 @@ export const fetchKey = async (key, scale) => {
 
 export const fetchKeyWithNote = async (prevArray) => {
   const array = { ...prevArray }
-  const keys = Object.keys(array); // キーの配列を取得
-  const lastTwoKeys = keys.splice(0,2); // 最後から２つのキーを取得
+  const keys = Object.keys(array) // キーの配列を取得
+  const lastTwoKeys = keys.splice(0, 2) // 最後から２つのキーを取得
 
   const deleteKeys = (array, keys) => {
-    const newArray = { ...array };
+    const newArray = { ...array }
     keys.forEach((key) => {
-      delete newArray[key]; // オブジェクトからキーと値を削除
-    });
-    return newArray;
-  };
+      delete newArray[key] // オブジェクトからキーと値を削除
+    })
+    return newArray
+  }
 
-  const keyList = { ...deleteKeys(array, lastTwoKeys) };
-  if (Object.values(keyList).every((v) => v !== true)) {  // すべての値が"True"ではない場合(初期値)
-    return;
+  const keyList = { ...deleteKeys(array, lastTwoKeys) }
+  if (Object.values(keyList).every((v) => v !== true)) {
+    // すべての値が"True"ではない場合(初期値)
+    return
   }
 
   let query = supabase.from('key').select('*')
-  Object.keys(keyList).forEach(key => {
+  Object.keys(keyList).forEach((key) => {
     if (keyList[key] === true) {
       query = query.eq(key, true)
     }

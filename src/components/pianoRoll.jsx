@@ -41,12 +41,11 @@ const PianoRoll = (props) => {
     'false',
   ])
 
-
   const Reset = () => {
-      const { key: key, scale: scale, ...rest } = finaldata
-      const newFinaldata = Object.fromEntries(
-        Object.entries(rest).map(([key, value]) => [key, false])
-      )
+    const { key: key, scale: scale, ...rest } = finaldata
+    const newFinaldata = Object.fromEntries(
+      Object.entries(rest).map(([key, value]) => [key, false])
+    )
     setFinaldata({ key: key, scale: scale, ...newFinaldata })
     setPrimaryKey(primaryKey.fill('false'))
   }
