@@ -11,4 +11,6 @@ export default {
   MAJOR_PENTATONIC: 'メジャーペンタトニック',
   MINOR_PENTATONIC: 'マイナーペンタトニック',
   BLUES: 'ブルース',
+  TITLE: 'スケール検索',
+  DESCRIPTIONS:"スケール名とスケールの構成音の両方からスケールを検索できます。インタラクティブなデザインで、スケールの構成音を視覚的に理解できます。",
 }

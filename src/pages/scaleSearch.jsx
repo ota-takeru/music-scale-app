@@ -49,7 +49,7 @@ const Text = styled.p`
   }
 `
 
-const App = () => {
+const ScaleSearch = () => {
   const [selectedKey, setSelectedKey] = useState('')
   const [selectedScale, setSelectedScale] = useState('')
   const [displayArray, setDisplayArray] = useState([])
@@ -106,4 +106,4 @@ const App = () => {
   )
 }
 
-export default App
+export default ScaleSearch

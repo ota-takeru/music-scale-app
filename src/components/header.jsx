@@ -82,12 +82,12 @@ const Header = () => {
         </Button>
         <Ul isDisplay={isDisplay}>
           <li>
-            <Link href="/" locale="en" passHref onClick={handleClick}>
+            <Link href="/scaleSearch" locale="en" passHref onClick={handleClick}>
               English
             </Link>
           </li>
           <li>
-            <Link href="/" locale="ja" passHref onClick={handleClick}>
+            <Link href="/scaleSearch" locale="ja" passHref onClick={handleClick}>
               日本語
             </Link>
           </li>
