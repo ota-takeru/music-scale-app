@@ -19,13 +19,20 @@ const Button = styled.button`
     background-color: #aaa;
     border: 2px solid #999;
   }
-  &:active {
-    background-color: orange;
+
+  @media (max-width: 600px) {
+    width: 60%;
+    margin: 20px 0 20px 0;
   }
 `
 const Div = styled.div`
   display: flex;
   margin: 0 0 20px 0;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 const PianoRoll = (props) => {

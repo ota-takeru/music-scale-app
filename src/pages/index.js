@@ -15,8 +15,9 @@ import KeySelector from '../components/keySelector'
 import ScaleSelector from '../components/scaleSelector'
 
 const Button = styled.button`
-  width: 140px;
+  width: auto;
   height: 50px;
+  padding: 0 20px;
   color: white;
   font-size: 25px;
   font-weight: bold;
@@ -29,9 +30,22 @@ const Button = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+  user-select: none;
   &:hover {
     background-color: deepskyblue;
-    border: 2px solid dodgerblue;
+  }
+
+  @media (max-width: 850px) {
+    &:hover {
+    }
+    &:active {
+      background-color: dodgerblue;
+    }
+  }
+`
+const Text = styled.p`
+  @media (max-width: 600px) {
+    display: none;
   }
 `
 
@@ -76,7 +90,9 @@ const App = () => {
           {/* <SelectScale setSelectedScale={setSelectedScale} submit={submit} /> */}
           <Button type="submit" onClick={submit}>
             <IoSearchOutline size={30} />
-            {t.SEARCH}
+            <Text>
+               {t.SEARCH}
+              </Text>           
           </Button>
         </SubContainer>
         <SubContainer isresponsive="false"></SubContainer>

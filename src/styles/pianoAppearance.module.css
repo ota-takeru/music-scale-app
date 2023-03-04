@@ -14,7 +14,7 @@
 
 #pianoWrap {
   margin: 0 3em;
-  height: 330px;
+  height: auto;
   /* width: calc(46px * 18); */
   display: flex;
   justify-content: center;

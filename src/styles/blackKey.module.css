@@ -12,6 +12,20 @@
   border-radius: 0 0 5px 5px;
 }
 
+@media screen and (max-width: 600px) {
+  .blackKey {
+    width: 36px;
+    height: 140px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .blackKey {
+    width: 32px;
+    height: 140px;
+  }
+}
+
 .blackKey:hover {
   color: #333;
   background: rgb(250, 209, 151);

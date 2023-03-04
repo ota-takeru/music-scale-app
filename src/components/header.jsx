@@ -9,13 +9,13 @@ const Button = styled.button`
   width: 80px;
   height: 60px;
   font-size: 20px;
-  border-radius: 10px;
   color: black;
   border: none;
   cursor: pointer;
   transition: 0.1s ease;
   background-color: #fff;
   margin-right: 0 20px;
+  user-select: none;
 `
 
 const Ul = styled.ul`
@@ -55,6 +55,13 @@ const Head = styled.header`
   }
   div {
     position: relative;
+    margin-right: 10em;
+  }
+
+  @media (max-width: 1100px) {
+    div {
+      margin-right: 0;
+    }
   }
 `
 const Header = () => {

@@ -4,7 +4,7 @@
     padding: 0 auto;
     justify-content: center;   
     width: 100%; 
-
+    overflow-x: hidden;
     
     }
 
@@ -12,9 +12,12 @@
         .container[isresponsive="true"] {
             display: flex;
             flex-direction: column-reverse;
+            align-items: center;
+            
         }
         .container[isresponsive="false"] {
             display: flex;
+            margin: 0 auto 20px auto;
         }
     }
       
