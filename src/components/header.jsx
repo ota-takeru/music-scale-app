@@ -5,55 +5,59 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { useLocale } from '../hooks/useLocale'
 
-const Header = () => {
-  const Button = styled.button`
-    width: 80px;
-    height: 60px;
-    font-size: 20px;
-    border-radius: 10px;
-    color: black;
-    border: none;
-    cursor: pointer;
-    transition: 0.1s ease;
-    background-color: #fff;
-  `
+const Button = styled.button`
+  width: 80px;
+  height: 60px;
+  font-size: 20px;
+  border-radius: 10px;
+  color: black;
+  border: none;
+  cursor: pointer;
+  transition: 0.1s ease;
+  background-color: #fff;
+  margin-right: 0 20px;
+`
 
-  const Ul = styled.ul`
-    display: ${(props) => (props.isDisplay ? 'block' : 'none')};
-    position: absolute;
-    top: 60px;
-    right: 0;
-    background-color: #eee;
-    padding: 10px;
-    position: absolute;
-    buttom: 0;
-    align-items: center;
-    li {
-      list-style: none;
-      margin: 10px;
-    }
-  `
+const Ul = styled.ul`
+  display: ${(props) => (props.isDisplay ? 'block' : 'none')};
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background-color: #eee;
+  padding: 10px;
+  position: absolute;
+  buttom: 0;
+  align-items: center;
+  li {
+    list-style: none;
+    margin: 10px;
+  }
+`
 
-  const Header = styled.header`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
+const Head = styled.header`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  position: relative;
+  text-align: center;
+  margin-bottom: 20px;
+  h1 {
+    font-size: 2em;
+    margin: 0 auto;
+  }
+  a {
+    text-decoration: none;
+  }
+  a :active {
+    color: #fff;
+  }
+  div {
     position: relative;
-    text-align: center;
-    margin-bottom: 20px;
-    h1 {
-      font-size: 2em;
-      margin: 0 auto;
-    }
-    a {
-      text-decoration: none;
-    }
-    a :active {
-        color: #fff;
-    }
-  `
-
+  }
+`
+const Header = () => {
   const [isDisplay, setIsDisplay] = useState(false)
 
   const handleClick = () => {
@@ -61,7 +65,7 @@ const Header = () => {
   }
   const { t } = useLocale()
   return (
-    <Header>
+    <Head>
       <h1>{t.TITLE}</h1>
       <div>
         <Button onClick={handleClick}>
@@ -82,7 +86,7 @@ const Header = () => {
           </li>
         </Ul>
       </div>
-    </Header>
+    </Head>
   )
 }
 

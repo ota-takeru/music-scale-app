@@ -1,17 +1,13 @@
 import React from 'react'
-import styled from 'styled-components'
+import Styles from '../styles/subContainer.module.css'
 
-const Contaienr = styled.div`
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 70px;
-  padding: 0 auto;
-  justify-content: center;
-  // justify-content: ${(props) => (props.form = true ? 'left' : 'center')};
-`
-const SubContainer = ({ children, props }) => {
-  // console.log(props.form);
-  return <Contaienr>{children}</Contaienr>
+const SubContainer = (props) => {
+  console.log(props.isresponsive)
+  return (
+    <div className={Styles.container} isresponsive={props.isresponsive}>
+      {props.children}
+    </div>
+  )
 }
 
 export default SubContainer

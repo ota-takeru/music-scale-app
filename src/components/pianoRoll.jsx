@@ -23,6 +23,10 @@ const Button = styled.button`
     background-color: orange;
   }
 `
+const Div = styled.div`
+  display: flex;
+  margin: 0 0 20px 0;
+`
 
 const PianoRoll = (props) => {
   const finaldata = props.finaldata
@@ -51,7 +55,7 @@ const PianoRoll = (props) => {
   }
 
   return (
-    <>
+    <Div>
       <PianoAppearance
         primaryKey={primaryKey}
         setPrimaryKey={setPrimaryKey}
@@ -64,7 +68,7 @@ const PianoRoll = (props) => {
           <HiOutlineRefresh />
         </IconContext.Provider>
       </Button>
-    </>
+    </Div>
   )
 }
 

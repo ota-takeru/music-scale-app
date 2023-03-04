@@ -11,10 +11,12 @@ import styled from 'styled-components'
 import Header from '../components/header'
 import { useLocale } from '../hooks/useLocale'
 import { IoSearchOutline } from 'react-icons/io5'
+import KeySelector from '../components/keySelector'
+import ScaleSelector from '../components/scaleSelector'
 
 const Button = styled.button`
   width: 140px;
-  height: 70px;
+  height: 50px;
   color: white;
   font-size: 25px;
   font-weight: bold;
@@ -55,6 +57,7 @@ const App = () => {
   })
 
   const submit = async () => {
+    console.log(selectedKey)
     if (selectedKey && selectedScale) {
       const response = await fetchKey(selectedKey, selectedScale)
       setFinaldata(response[0])
@@ -63,22 +66,27 @@ const App = () => {
   const { t } = useLocale()
 
   return (
-    <Container>
+    <>
       <Header />
-      <SubContainer form={true}>
-        <SelectKey setSelectedKey={setSelectedKey} submit={submit} />
-        <SelectScale setSelectedScale={setSelectedScale} submit={submit} />
-        <Button type="submit" onClick={submit}>
-          <IoSearchOutline size={30} />
-          {t.SEARCH}
-        </Button>
-      </SubContainer>
-      <SubContainer form={false}>
-        <DisplayScaleAndKey array={finaldata} finaldata={finaldata} />
-        <PianoRoll finaldata={finaldata} setFinaldata={setFinaldata} />
-      </SubContainer>
-      <div>{/* <Guitar /> */}</div>
-    </Container>
+      <Container>
+        <SubContainer isresponsive="false">
+          <KeySelector setSelectedKey={setSelectedKey} submit={submit} />
+          <ScaleSelector setSelectedScale={setSelectedScale} submit={submit} />
+          {/* <SelectKey setSelectedKey={setSelectedKey} submit={submit} /> */}
+          {/* <SelectScale setSelectedScale={setSelectedScale} submit={submit} /> */}
+          <Button type="submit" onClick={submit}>
+            <IoSearchOutline size={30} />
+            {t.SEARCH}
+          </Button>
+        </SubContainer>
+        <SubContainer isresponsive="false"></SubContainer>
+        <SubContainer isresponsive="true">
+          <DisplayScaleAndKey array={finaldata} finaldata={finaldata} />
+          <PianoRoll finaldata={finaldata} setFinaldata={setFinaldata} />
+        </SubContainer>
+        <div>{/* <Guitar /> */}</div>
+      </Container>
+    </>
   )
 }
 

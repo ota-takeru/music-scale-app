@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
 import { useLocale } from '../hooks/useLocale'
+// import Styles from '../styles/selectDiv.module.css'
 
 const DynamicSelect = dynamic(() => import('react-select'), { ssr: false })
 
@@ -34,7 +35,6 @@ const SelectKey = (props) => {
       borderColor: state.isFocused ? '#007bff' : '#ddd',
       marginRight: '20px',
       boxShadow: '3px 3px 6px 1px #ddd',
-      // textAlign: "center",
     }),
     menuPortal: (base) => ({
       ...base,
@@ -45,15 +45,16 @@ const SelectKey = (props) => {
   const { t } = useLocale()
   if (typeof document !== 'undefined') {
     return (
-      <>
-        <DynamicSelect
-          options={options}
-          onChange={handleChange}
-          defaultValue={{ label: t.SELECTED_KEY, value: key }}
-          styles={customStyles}
-          menuPortalTarget={document.body}
-        />
-      </>
+      // <div className={Styles.contaienr}>
+      <DynamicSelect
+        options={options}
+        onChange={handleChange}
+        defaultValue={{ label: t.SELECTED_KEY, value: key }}
+        styles={customStyles}
+        menuPortalTarget={document.body}
+        // className={Styles.key-selector}
+      />
+      // </div>
     )
   }
 }

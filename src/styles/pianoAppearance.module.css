@@ -1,6 +1,6 @@
 .pianoContainer {
-  margin: 0;
-  width: calc(100% - 40px);
+  margin: 0 auto;
+  /* width: calc(100% - 40px); */
   height: 400px;
   overflow: auto;
 }
@@ -13,9 +13,9 @@
 }
 
 #pianoWrap {
-  margin: 0 auto;
+  margin: 0 3em;
   height: 330px;
-  width: calc(46px * 18);
+  /* width: calc(46px * 18); */
   display: flex;
   justify-content: center;
   word-break: break-word;

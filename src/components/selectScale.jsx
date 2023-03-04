@@ -16,7 +16,7 @@ const SelectScale = (props) => {
     { value: 'melodic-minor', label: t.MELODIC_MINOR },
     { value: 'major-pentatonic', label: t.MAJOR_PENTATONIC },
     { value: 'minor-pentatonic', label: t.MINOR_PENTATONIC },
-    { value: 'blues', label: t.BLUES },
+    // { value: 'blues', label: t.BLUES },
   ]
   const handleChange = (selectedOption) => {
     setScale(selectedOption.value)

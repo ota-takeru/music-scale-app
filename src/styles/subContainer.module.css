@@ -1,0 +1,20 @@
+.container {
+    display: flex;
+    margin: 0 auto 40px auto;
+    padding: 0 auto;
+    justify-content: center;   
+    width: 100%; 
+
+    
+    }
+
+    @media screen and (max-width: 850px) {
+        .container[isresponsive="true"] {
+            display: flex;
+            flex-direction: column-reverse;
+        }
+        .container[isresponsive="false"] {
+            display: flex;
+        }
+    }
+      

@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    /* width: 100%; */
+    /* height: 100%;     */
+    margin-right: 1em ;
+  }
+
+  .baseSelector {
+    appearance: none;
+    /* min-width: auto; */
+    min-width: auto;
+    height: 50px;
+    padding: 0 40px 0 8px;
+    font-weight: lighter;
+    font-size: 25px;
+    border-color: 007bff;
+    box-shadow: 3px 3px 6px 1px #ddd;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    background: #fff url(../assets/down-arrow-svgrepo-com.svg) no-repeat right 10px center / 16px auto;
+  } 
+
+  .baseSelector option {
+    text-decoration: none;
+    padding: 10px;
+    font-size: 20px;
+    font-weight: lighter;
+    border-radius: 5px;
+    border: solid 1px #ccc;
+    background: #fff;
+    white-space: nowrap;
+  }
+
+    .baseSelector option:hover {
+        background-color: #eee;
+    }
+
+  
+  @media screen and (max-width: 850px) {
+    .baseSelector {
+        width: 60px;
+        height: 50px;
+        font-size: 15px;
+    }
+}   
+
+.scaleSelector {
+    composes: baseSelector;
+    min-width: 13em;
+}
+
