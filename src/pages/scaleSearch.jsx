@@ -13,6 +13,7 @@ import { useLocale } from '../hooks/useLocale'
 import { IoSearchOutline } from 'react-icons/io5'
 import KeySelector from '../components/keySelector'
 import ScaleSelector from '../components/scaleSelector'
+import Head from '../components/head'
 
 const Button = styled.button`
   width: auto;
@@ -80,6 +81,11 @@ const ScaleSearch = () => {
 
   return (
     <>
+      <Head
+        title={t.TITLE}
+        descriptions={t.DESCRIPTIONS}
+        keywords={t.KEYWORDS}
+      />
       <Header />
       <Container>
         <SubContainer isresponsive="false">

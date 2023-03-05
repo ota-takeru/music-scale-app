@@ -3,11 +3,10 @@ import Link from 'next/link'
 import { useLocale } from '../hooks/useLocale'
 
 const Home = () => {
- const { t } = useLocale() 
+  const { t } = useLocale()
   return (
     <div>
-      <h1>Home</h1>]
-      <Link href="/scaleSearch">{t.TITLE}</Link>
+      <h1>Home</h1>]<Link href="/scaleSearch">{t.TITLE}</Link>
     </div>
   )
 }

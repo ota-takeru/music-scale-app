@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"./src/**/*.{js,jsx}\"",
-    "debug": "node --inspect=0.0.0.0:9229 node_modules/next/dist/bin/next"
+    "debug": "node --inspect=0.0.0.0:9229 node_modules/next/dist/bin/next",
+    "export": "next-sitemap --config sitemap.config.js && npx vercel --prod"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.8.0",
@@ -25,5 +26,8 @@
   },
   "engines": {
     "node": "18.x"
+  },
+  "devDependencies": {
+    "next-sitemap": "^4.0.2"
   }
 }

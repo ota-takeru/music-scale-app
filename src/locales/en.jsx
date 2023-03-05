@@ -13,4 +13,5 @@ export default {
   BLUES: 'Blues',
   DESCRIPTIONS:
     'Discover the world of music scales and improve your playing and compsing. Our interactive website offers a visual representation of each scale',
+  KEYWORDS: 'Scale,Search,Piano,Guitar,Music,Scale,Minor,Major',
 }
