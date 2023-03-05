@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
-import SelectKey from '../components/selectKey'
-import SelectScale from '../components/selectScale'
+// import SelectKey from '../components/selectKey'
+// import SelectScale from '../components/selectScale'
 import PianoRoll from '../components/pianoRoll'
 import SubContainer from '../components/subContainer'
 import Container from '../components/container'
@@ -71,7 +71,6 @@ const ScaleSearch = () => {
   })
 
   const submit = async () => {
-    console.log(selectedKey)
     if (selectedKey && selectedScale) {
       const response = await fetchKey(selectedKey, selectedScale)
       setFinaldata(response[0])
@@ -90,9 +89,7 @@ const ScaleSearch = () => {
           {/* <SelectScale setSelectedScale={setSelectedScale} submit={submit} /> */}
           <Button type="submit" onClick={submit}>
             <IoSearchOutline size={30} />
-            <Text>
-               {t.SEARCH}
-              </Text>           
+            <Text>{t.SEARCH}</Text>
           </Button>
         </SubContainer>
         <SubContainer isresponsive="false"></SubContainer>

@@ -3,10 +3,9 @@ import { useState } from 'react'
 import Styles from '../styles/selectDiv.module.css'
 import { useLocale } from '../hooks/useLocale'
 
-
 const ScaleSelector = (props) => {
-    const [scale, setScale] = useState('')
-    const { t } = useLocale()
+  const [scale, setScale] = useState('')
+  const { t } = useLocale()
   const options = [
     { value: 'major', label: t.MAJOR },
     { value: 'minor', label: t.MINOR },
@@ -19,9 +18,7 @@ const ScaleSelector = (props) => {
   const handleChange = (e) => {
     setScale(e.target.value)
     props.setSelectedScale(e.target.value)
-    console.log(e.target.value)
   }
-
 
   return (
     <div className={Styles.container}>

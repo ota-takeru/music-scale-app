@@ -1,26 +1,28 @@
 import Router from 'next/router'
+import Link from 'next/link'
+import { useLocale } from '../hooks/useLocale'
 
-const RedirectPage = () => {
-    return (
-        <div>
-            <h1>Home</h1>
-        </div>
-    )
+const Home = () => {
+ const { t } = useLocale() 
+  return (
+    <div>
+      <h1>Home</h1>]
+      <Link href="/scaleSearch">{t.TITLE}</Link>
+    </div>
+  )
 }
 
-RedirectPage.getInitialProps = async ({ res }) => {
-
+Home.getInitialProps = async ({ res }) => {
   if (typeof window === 'undefined') {
     res.writeHead(302, { Location: '/scaleSearch' })
     res.end()
 
-    return {} 
+    return {}
   }
 
   Router.push('/scaleSearch')
 
-  return {} 
+  return {}
 }
 
-export default RedirectPage
-
+export default Home

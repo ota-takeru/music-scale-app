@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react'
 import Styles from '../styles/selectDiv.module.css'
 
-
 const KeySelector = (props) => {
   const [key, setKey] = useState('Key')
   const options = [
@@ -23,9 +22,7 @@ const KeySelector = (props) => {
   const handleChange = (e) => {
     setKey(e.target.value)
     props.setSelectedKey(e.target.value)
-    console.log(e.target.value)
   }
-
 
   return (
     <div className={Styles.container}>
