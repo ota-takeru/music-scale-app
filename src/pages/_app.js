@@ -2,6 +2,7 @@ import React from 'react'
 import { Analytics } from '@vercel/analytics/react'
 import { ThemeProvider } from 'styled-components'
 import { theme } from '../utils/theme'
+import '../styles/global.css'
 
 export default function App({ Component, pageProps }) {
   React.useEffect(() => {

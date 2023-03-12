@@ -1,8 +1,7 @@
 import Head from 'next/head'
 import React from 'react'
 
-const CustomHead = ( props ) => {
-  console.log(props.descriptions)
+const CustomHead = (props) => {
   return (
     <Head>
       <title>{props.title}</title>
@@ -11,7 +10,6 @@ const CustomHead = ( props ) => {
       <meta name="keywords" content={props.keywords} />
     </Head>
   )
-
-} 
+}
 
 export default CustomHead

@@ -1,9 +1,9 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Styles from '../styles/selectDiv.module.css'
+import { useLocale } from '../hooks/useLocale'
 
 const KeySelector = (props) => {
-  const [key, setKey] = useState('Key')
   const options = [
     { value: 'A', label: 'A' },
     { value: 'A#', label: 'A#' },
@@ -18,19 +18,29 @@ const KeySelector = (props) => {
     { value: 'G', label: 'G' },
     { value: 'G#', label: 'G#' },
   ]
+  const [key, setKey] = useState(props.selectedKey)
 
   const handleChange = (e) => {
     setKey(e.target.value)
     props.setSelectedKey(e.target.value)
   }
 
+  useEffect(() => {
+    setKey(props.selectedKey)
+  }, [props.selectedKey])
+
+  const { t } = useLocale()
   return (
     <div className={Styles.container}>
       <select
         onChange={handleChange}
-        defaultValue={{ label: key, value: key }}
         className={Styles.baseSelector}
+        defaultValue={key}
+        label={key}
       >
+        <option value="" hidden>
+          {key ? key : t.SELECTED_KEY}
+        </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

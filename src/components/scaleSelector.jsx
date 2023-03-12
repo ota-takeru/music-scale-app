@@ -1,32 +1,40 @@
-import React from 'react'
-import { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Styles from '../styles/selectDiv.module.css'
 import { useLocale } from '../hooks/useLocale'
+import { useConvertScaleName } from '../hooks/useConvertScaleName'
 
 const ScaleSelector = (props) => {
-  const [scale, setScale] = useState('')
+  const convertScale = useConvertScaleName()
   const { t } = useLocale()
   const options = [
     { value: 'major', label: t.MAJOR },
     { value: 'minor', label: t.MINOR },
-    { value: 'harmonic-minor', label: t.HARMONIC_MINOR },
-    { value: 'melodic-minor', label: t.MELODIC_MINOR },
-    { value: 'major-pentatonic', label: t.MAJOR_PENTATONIC },
-    { value: 'minor-pentatonic', label: t.MINOR_PENTATONIC },
+    { value: 'harmonicMinor', label: t.HARMONIC_MINOR },
+    { value: 'melodicMinor', label: t.MELODIC_MINOR },
+    { value: 'majorPentatonic', label: t.MAJOR_PENTATONIC },
+    { value: 'minorPentatonic', label: t.MINOR_PENTATONIC },
   ]
-
+  const [scale, setScale] = useState(props.selectedScale)
   const handleChange = (e) => {
     setScale(e.target.value)
     props.setSelectedScale(e.target.value)
   }
 
+  useEffect(() => {
+    setScale(props.selectedScale)
+  }, [props.selectedScale])
+
   return (
     <div className={Styles.container}>
       <select
         onChange={handleChange}
-        defaultValue={{ label: t.SELECTED_SCALE, value: scale }}
         className={Styles.scaleSelector}
+        defaultValue={scale}
+        label={scale}
       >
+        <option value="" hidden>
+          {scale ? convertScale[scale] : t.SELECTED_SCALE}
+        </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

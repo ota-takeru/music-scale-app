@@ -2,11 +2,14 @@ import React, { useEffect, useState } from 'react'
 import Styles from '../styles/displayScaleAndKey.module.css'
 import { fetchKeyWithNote } from '../api/index'
 import { useLocale } from '../hooks/useLocale'
+import Link from 'next/link'
+import { useConvertScaleName } from '../hooks/useConvertScaleName'
 
 const DisplayScaleAndKey = (props) => {
   const [displayResult, setDisplayResult] = useState([])
   const array = props.array
 
+  const convertScale = useConvertScaleName()
   const fetchData = async () => {
     if (array.length === 0) return
     //キーボードのデータを配列として受けとり、それを元にfetchKeyWithNoteを呼び出す
@@ -20,18 +23,28 @@ const DisplayScaleAndKey = (props) => {
         }
         setDisplayResult((prevState) => [
           ...prevState,
-          result[i].key + '-' + result[i].scale,
+          { key: result[i].key, scale: result[i].scale },
         ])
       }
     }
   }
+  const { t } = useLocale()
 
   useEffect(() => {
     fetchData()
   }, [array])
 
-  const list = displayResult.map((elm) => <p key={elm}>{elm}</p>)
-  const { t } = useLocale()
+  const list = displayResult.map((elm) => (
+    <Link
+      href={`/scaleSearch/${encodeURIComponent(elm.key + '-' + elm.scale)}`}
+      className={Styles.text}
+      key={elm.key + elm.scale}
+    >
+      <p key={elm.key + elm.scale}>
+        {elm.key}-{convertScale[elm.scale]}
+      </p>
+    </Link>
+  ))
 
   return (
     <div className={Styles.container}>

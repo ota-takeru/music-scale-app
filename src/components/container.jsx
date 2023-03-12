@@ -5,8 +5,9 @@ const Div = styled.div`
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 20px;
-
+  padding: 20px 20px;
+  // background-color: #ccc;
+  border-radius: 10px;
   @media (max-width: 768px) {
     padding: 0;
   }
