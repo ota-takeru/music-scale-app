@@ -9,15 +9,15 @@ const Button = styled.button`
   height: 60px;
   font-size: 20px;
   border-radius: 10px;
-  background-color: #999;
+  background-color: #aaa;
   color: white;
   border: none;
   cursor: pointer;
   transition: 0.1s ease;
   box-shadow: 2px 2px 6px 1px #ddd;
   &:hover {
-    background-color: #aaa;
-    border: 2px solid #999;
+    background-color: #ccc;
+    border: 2px solid #ccc;
   }
 
   @media (max-width: 600px) {

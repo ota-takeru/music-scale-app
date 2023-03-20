@@ -41,7 +41,7 @@ const DisplayScaleAndKey = (props) => {
       key={elm.key + elm.scale}
     >
       <p key={elm.key + elm.scale}>
-        {elm.key}-{convertScale[elm.scale]}
+        {elm.key}-{convertScale[elm.scale] + t.SELECTED_SCALE}
       </p>
     </Link>
   ))

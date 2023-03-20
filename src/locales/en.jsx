@@ -1,7 +1,7 @@
 export default {
   TITLE: 'Scale Search',
   SELECTED_KEY: 'Key',
-  SELECTED_SCALE: 'Scale',
+  SELECTED_SCALE: ' Scale',
   RESULT: 'Result',
   SEARCH: 'Search',
   MINOR: 'Minor',
@@ -14,4 +14,7 @@ export default {
   DESCRIPTIONS:
     'Discover the world of music scales and improve your playing and compsing. Our interactive website offers a visual representation of each scale',
   KEYWORDS: 'Scale,Search,Piano,Guitar,Music,Scale,Minor,Major',
+  THREE_CHORDS: 'Three Chords',
+  FOUR_CHORDS: 'Four Chords',
+  OTHERS: 'Others',
 }

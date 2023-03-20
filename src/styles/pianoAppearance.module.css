@@ -1,5 +1,5 @@
 .pianoContainer {
-  margin: 0 auto;
+  /* margin: 0 auto; */
   /* width: calc(100% - 40px); */
   height: 400px;
   overflow: auto;
@@ -13,7 +13,7 @@
 }
 
 #pianoWrap {
-  margin: 0 3em;
+  margin: 0 2em;
   height: auto;
   /* width: calc(46px * 18); */
   display: flex;

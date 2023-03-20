@@ -1,8 +1,8 @@
 .container {
-  margin: 0 40px;
+  margin: 0 20px;
   border-radius: 5px;
   background-color: #eee;
-  width: 17em;
+  width: 20em;
   height: 100%;
   border-radius: 7px;
 }
@@ -34,13 +34,15 @@
   text-decoration: none;
   margin: 0 auto;
   padding: 7px 20px;
-  /* width: 100%; */
+
+  
 }
 
 .subContainer p:hover  {  
   background: #ccc;
-  border-radius: 20px;
+  border-radius: 10px;
   cursor: pointer;
+  text-decoration: underline;
 }
 
 @media screen and (max-width: 850px) {
@@ -52,16 +54,9 @@
   color: #333;
   text-decoration: none;
 }
-
-
-
 .subContainer::-webkit-scrollbar {
   width: 13px;
 }
-
-/* .subContainer ::-webkit-scrollbar-track{
-  background-color: red;
-} */
 
 .subContainer::-webkit-scrollbar-thumb {
   background-color: #bbb;

@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://music-tool.com
+
+# Sitemaps
+Sitemap: https://music-tool.com/sitemap.xml
+Sitemap: https://music-tool.com/sitemap/scaleSearch.xml
+Sitemap: https://music-tool.com/sitemap/scaleSearch/id.xml

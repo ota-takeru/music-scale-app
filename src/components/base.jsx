@@ -15,41 +15,7 @@ import KeySelector from './keySelector'
 import ScaleSelector from './scaleSelector'
 import Head from './head'
 import { useRouter } from 'next/router'
-
-const Button = styled.button`
-  width: auto;
-  height: 50px;
-  padding: 0 20px;
-  color: white;
-  font-size: 25px;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  background-color: dodgerblue;
-  cursor: pointer;
-  transition: 0.1s ease;
-  box-shadow: 2px 2px 6px 2px #ccc;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  user-select: none;
-  &:hover {
-    background-color: deepskyblue;
-  }
-
-  @media (max-width: 850px) {
-    &:hover {
-    }
-    &:active {
-      background-color: dodgerblue;
-    }
-  }
-`
-const Text = styled.p`
-  @media (max-width: 600px) {
-    display: none;
-  }
-`
+import Footer from './footer'
 
 const ScaleSearch = (props) => {
   const { queryKey, queryScale, urlArray } = props
@@ -88,7 +54,7 @@ const ScaleSearch = (props) => {
       return
     }
 
-    router.push(
+    await router.push(
       `/scaleSearch/${encodeURIComponent(selectedKey)}-${selectedScale}`
     )
     const response = await fetchKey(key, scale)
@@ -126,12 +92,10 @@ const ScaleSearch = (props) => {
             setSelectedScale={setSelectedScale}
             selectedScale={selectedScale}
           />
-          {/* <SelectKey setSelectedKey={setSelectedKey} submit={submit} /> */}
-          {/* <SelectScale setSelectedScale={setSelectedScale} submit={submit} /> */}
-          <Button type="submit" onClick={submit}>
+          {/* <Button type="submit" onClick={submit}>
             <IoSearchOutline size={30} />
             <Text>{t.SEARCH}</Text>
-          </Button>
+          </Button> */}
         </SubContainer>
         <SubContainer isresponsive="false"></SubContainer>
         <SubContainer isresponsive="true">
@@ -141,8 +105,44 @@ const ScaleSearch = (props) => {
         <div>{/* <Guitar /> */}</div>
         <SubContainer isresponsive="false">{props.children}</SubContainer>
       </Container>
+      <Footer />
     </>
   )
 }
 
 export default ScaleSearch
+
+const Button = styled.button`
+  width: auto;
+  height: 50px;
+  padding: 0 20px;
+  color: white;
+  font-size: 25px;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  background-color: dodgerblue;
+  cursor: pointer;
+  transition: 0.1s ease;
+  box-shadow: 2px 2px 6px 2px #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  &:hover {
+    background-color: deepskyblue;
+  }
+
+  @media (max-width: 850px) {
+    &:hover {
+    }
+    &:active {
+      background-color: dodgerblue;
+    }
+  }
+`
+const Text = styled.p`
+  @media (max-width: 600px) {
+    display: none;
+  }
+`

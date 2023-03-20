@@ -9,5 +9,5 @@ const nextConfig = {
   defaultLocale: 'ja',
 },
 }
-
 module.exports = nextConfig
+

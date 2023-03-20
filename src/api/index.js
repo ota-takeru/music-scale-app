@@ -43,3 +43,23 @@ export const fetchKeyWithNote = async (prevArray) => {
     return {}
   }
 }
+
+export const fetchChords = async (array) => {
+  // console.log(array)
+  if (!array) {
+    return []
+  }
+  let a = ''
+  array.forEach((value, index) => {
+    if (index === 0) {
+      a += array[index] + '.eq.true'
+    } else {
+      a += ',' + array[index] + '.eq.true'
+    }
+  })
+  const { data, error } = await supabase.from('chords').select('*').or(a)
+  if (error) {
+    console.log('error')
+  }
+  return data
+}
