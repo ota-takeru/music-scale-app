@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react'
-// import SelectKey from '../components/selectKey'
-// import SelectScale from '../components/selectScale'
 import PianoRoll from './pianoRoll'
 import SubContainer from './subContainer'
 import Container from './container'
@@ -39,21 +37,18 @@ const ScaleSearch = (props) => {
     g_sharp: false,
   })
 
-  const submit = (event) => {
-    event.preventDefault()
-    if (!selectedKey || !selectedScale) {
-      return
-    }
-    router.push(
-      `/scaleSearch/${encodeURIComponent(selectedKey)}-${selectedScale}`
-    )
-  }
+  // const submit = (event) => {
+  //   event.preventDefault()
+  //   if (!selectedKey || !selectedScale) {
+  //     return
+  //   }
+  //   router.push(
+  //     `/scaleSearch/${encodeURIComponent(selectedKey)}-${selectedScale}`
+  //   )
+  // }
 
   const getKey = async (key, scale) => {
-    if (!key || !scale) {
-      return
-    }
-
+    if (!key || !scale) return
     await router.push(
       `/scaleSearch/${encodeURIComponent(selectedKey)}-${selectedScale}`
     )
@@ -81,10 +76,11 @@ const ScaleSearch = (props) => {
         descriptions={t.DESCRIPTIONS}
         keywords={t.KEYWORDS}
       />
-      <Header />
+      <Header href="/scaleSearch" title={t.SCALE_TITLE} />
       <Container>
         <SubContainer isresponsive="false">
           <KeySelector
+          label={t.SELECTED_KEY}
             setSelectedKey={setSelectedKey}
             selectedKey={selectedKey}
           />
@@ -97,15 +93,14 @@ const ScaleSearch = (props) => {
             <Text>{t.SEARCH}</Text>
           </Button> */}
         </SubContainer>
-        <SubContainer isresponsive="false"></SubContainer>
         <SubContainer isresponsive="true">
-          <DisplayScaleAndKey array={finaldata} finaldata={finaldata} />
+          <DisplayScaleAndKey array={finaldata}/>
           <PianoRoll finaldata={finaldata} setFinaldata={setFinaldata} />
         </SubContainer>
         <div>{/* <Guitar /> */}</div>
         <SubContainer isresponsive="false">{props.children}</SubContainer>
       </Container>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

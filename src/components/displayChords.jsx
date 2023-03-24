@@ -11,38 +11,38 @@ const DisplayChords = (props) => {
   const [displayFourChords, setDisplayFourChords] = useState([])
   const [displayOthers, setDisplayOthers] = useState([])
 
+  useEffect(() => {
+    console.log(array)
+  }, [array])
   const FetchKey = async (key, scale) => {
-    if (!key || !scale) {
-      return
-    }
+    if (!key || !scale) return
     const response = await fetchKey(key, scale)
     const data = Object.keys(response[0]).filter((key) => response[0][key])
     data.splice(0, 2)
     return data
   }
 
-  const FetchChords = async (array) => {
-    const response = await fetchChords(array)
-    let c = []
-    for (let i = 0; i < response.length; i++) {
-      const trueKeys = Object.keys(response[i]).filter(
-        (key) => response[i][key] && key !== 'root' && key !== 'type'
-      )
-      trueKeys.unshift(BigToSmall[response[i].root], response[i].type)
-      const filtered = trueKeys.slice(2)
+  const FetchData = async (array) => {
+    const response = await fetchChords(array);
+    const filteredResponse = response.map((chord) => {
+      const trueKeys = Object.keys(chord).filter(
+        (key) => chord[key] && key !== 'root' && key !== 'type'
+      );
+      trueKeys.unshift(BigToSmall[chord.root], chord.type);
+      const filtered = trueKeys.slice(2);
       if (filtered.every((item) => array.includes(item))) {
-        c.push(trueKeys)
+        return trueKeys;
       }
-    }
-    return c
+      return null;
+    }).filter(Boolean);
+    return filteredResponse;
   }
 
   useEffect(() => {
     (async () => {
       const a = await FetchKey(array[0], array[1])
-      const b = await FetchChords(a)
-
-      console.log(a, b)
+      const b = await FetchData(a)
+      console.log(b)
       if (a && b) {
         const threeChords = {}
         const fourChords = {}
@@ -53,17 +53,17 @@ const DisplayChords = (props) => {
               if (b[j].length === 5) {
                 threeChords[a[i]] = [
                   ...(threeChords[a[i]] || []),
-                  SmallToBig[b[j][0]] + b[j][1],
+                  SmallToBig[b[j][0]] + (b[j][1] ? b[j][1] : ''),
                 ]
               } else if (b[j].length === 6) {
                 fourChords[a[i]] = [
                   ...(fourChords[a[i]] || []),
-                  SmallToBig[b[j][0]] + b[j][1],
+                  SmallToBig[b[j][0]] + (b[j][1] ? b[j][1] : ''),
                 ]
               } else {
                 others[a[i]] = [
                   ...(others[a[i]] || []),
-                  SmallToBig[b[j][0]] + b[j][1],
+                  SmallToBig[b[j][0]] + (b[j][1] ? b[j][1] : ''),
                 ]
               }
             }
@@ -83,12 +83,11 @@ const DisplayChords = (props) => {
         }
         if (Object.keys(fourChords).length > 0) {
           setDisplayFourChords(fourChords)
-        } 
+        }
         if (Object.keys(others).length > 0) {
           setDisplayOthers(others)
         }
       }
-
     })()
   }, [array[0], array[1]])
 
@@ -96,8 +95,7 @@ const DisplayChords = (props) => {
 
   return (
     <Table>
-      <thead>
-      </thead>
+      <thead></thead>
       <tbody>
         <tr>
           <td>{t.THREE_CHORDS}</td>
@@ -149,9 +147,9 @@ const Table = styled.table`
 
   @media screen and (max-width: 850px) {
     // display: flex;
-    // flex-direction: column; 
+    // flex-direction: column;
     writing-mode: vertical-lr;
- 
+
     th,
     td {
       writing-mode: horizontal-tb;

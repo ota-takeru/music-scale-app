@@ -1,7 +1,11 @@
 export default {
-  TITLE: 'スケール検索',
+  HOME_TITLE: 'MUSIC-TOOL',
+  SCALE_TITLE: 'スケール検索',
+  CHORD_TITLE: 'コード検索',
   SELECTED_KEY: 'キー',
   SELECTED_SCALE: 'スケール',
+  SELECTED_CHORD: 'コード',
+  SELECTED_ROOT: 'ルート',
   RESULT: '結果',
   SEARCH: '検索',
   MINOR: 'マイナー',
@@ -15,6 +19,8 @@ export default {
   DESCRIPTIONS:
     'スケール名と構成音の両方からスケールを検索できます。インタラクティブなデザインで、スケールの構成音を視覚的に理解できます。',
   KEYWORDS: 'スケール,検索,ピアノ,ギター,音楽,音階,メジャー,マイナー',
+  DESCRIPTIONS_HOME:
+    'このサイトでは、音楽のスケールとコードを名前と構成音の両方から検索できます。',
   THREE_CHORDS: '三和音',
   FOUR_CHORDS: '四和音',
   OTHERS: 'その他',

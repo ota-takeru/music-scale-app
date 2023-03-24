@@ -17,7 +17,7 @@ function Post() {
   }, [router.query])
 
   const convertScale = useConvertScaleName()
-  
+
   return (
     <>
       <Base queryKey={array[0]} queryScale={array[1]} urlArray={array}>

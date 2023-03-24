@@ -3,6 +3,7 @@
   /* width: calc(100% - 40px); */
   height: 400px;
   overflow: auto;
+  box-shadow: 3px 3px 6px 1px #ddd;
 }
 
 #pianoWrap * {
@@ -14,11 +15,11 @@
 
 #pianoWrap {
   margin: 0 2em;
-  height: auto;
-  /* width: calc(46px * 18); */
+  height: auto; 
   display: flex;
   justify-content: center;
   word-break: break-word;
+  box-shadow: 3px 3px 6px 1px #ddd;
 }
 
 #pianoWrap > div {

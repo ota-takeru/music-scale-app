@@ -1,7 +1,11 @@
 export default {
-  TITLE: 'Scale Search',
+  HOME_TITLE: 'MUSIC-TOOL',
+  SCALE_TITLE: 'Scale Search',
+  CHORD_TITLE: 'Chord Search',
   SELECTED_KEY: 'Key',
   SELECTED_SCALE: ' Scale',
+  SELECTED_CHORD: 'Chord',
+  SELECTED_ROOT: 'Root',
   RESULT: 'Result',
   SEARCH: 'Search',
   MINOR: 'Minor',
@@ -14,6 +18,8 @@ export default {
   DESCRIPTIONS:
     'Discover the world of music scales and improve your playing and compsing. Our interactive website offers a visual representation of each scale',
   KEYWORDS: 'Scale,Search,Piano,Guitar,Music,Scale,Minor,Major',
+  DESCRIPTIONS_HOME:
+    'This site allows you to search for musical scales and chords by both name and constituent notes.',
   THREE_CHORDS: 'Three Chords',
   FOUR_CHORDS: 'Four Chords',
   OTHERS: 'Others',

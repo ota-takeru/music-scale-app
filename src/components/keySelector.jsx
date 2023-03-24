@@ -39,7 +39,7 @@ const KeySelector = (props) => {
         label={key}
       >
         <option value="" hidden>
-          {key ? key : t.SELECTED_KEY}
+          {key ? key : props.label}
         </option>
         {options.map((option) => (
           <option key={option.value} value={option.value}>

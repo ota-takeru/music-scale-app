@@ -28,38 +28,43 @@ export const fetchKeyWithNote = async (prevArray) => {
     // すべての値が"True"ではない場合(初期値)
     return
   }
-
   let query = supabase.from('key').select('*')
   Object.keys(keyList).forEach((key) => {
     if (keyList[key] === true) {
       query = query.eq(key, true)
     }
   })
-
-  const { data: data, error } = await query
-  if (data) {
-    return data
-  } else {
-    return {}
-  }
+  const { data, error } = await query
+  return data || {}
 }
 
 export const fetchChords = async (array) => {
-  // console.log(array)
-  if (!array) {
+  if (!array || array.length === 0) {
     return []
   }
-  let a = ''
-  array.forEach((value, index) => {
-    if (index === 0) {
-      a += array[index] + '.eq.true'
-    } else {
-      a += ',' + array[index] + '.eq.true'
+  const query = array.map(value => `${value}.eq.true`).join(',')
+  const { data } = await supabase.from('chords').select('*').or(query)
+  return data
+}
+
+export const fetchChordsWithNote = async (obj) => {
+  let query = supabase.from('chords').select('*')
+  const [, value] = Object.entries(obj)[1];
+  Object.entries(obj).forEach(([key, value]) => {
+    if (key !== 'root' && key !== 'type' && value === true) {
+      query = query.eq(key, true);
     }
-  })
-  const { data, error } = await supabase.from('chords').select('*').or(a)
-  if (error) {
-    console.log('error')
-  }
+  });
+  const { data, error } = await query;
+  return data;
+}
+
+
+export const fetchChordsWithName = async (root, type) => {
+  const { data } = await supabase
+    .from('chords')
+    .select('*')
+    .eq('root', root)
+    .eq('type', type)
   return data
 }
