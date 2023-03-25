@@ -1,11 +1,11 @@
-import ChordSearch from "@/src/components/baseChord";
+import ChordSearch from '@/src/components/baseChord'
 
 const Main = () => {
   return (
     <>
-      <ChordSearch urlArray={[]}/>
+      <ChordSearch urlArray={[]} />
     </>
-  );
+  )
 }
 
 export default Main

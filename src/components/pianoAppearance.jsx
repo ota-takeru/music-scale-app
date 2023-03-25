@@ -6,7 +6,9 @@ import React from 'react'
 
 const PianoAppearance = (props) => {
   const finaldata = props.finaldata ? props.finaldata : props.finalchord
-  const setFinaldata = props.setFinaldata ? props.setFinaldata : props.setFinalchord
+  const setFinaldata = props.setFinaldata
+    ? props.setFinaldata
+    : props.setFinalchord
   const primaryKey = props.primaryKey
   const setPrimaryKey = props.setPrimaryKey
 

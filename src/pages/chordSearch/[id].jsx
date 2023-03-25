@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import ChordSearch from "@/src/components/baseChord"
+import ChordSearch from '@/src/components/baseChord'
 
 const Post = () => {
-    const router = useRouter()
+  const router = useRouter()
   const { id } = router.query
   const [array, setArray] = useState([])
 
@@ -12,12 +12,11 @@ const Post = () => {
       setArray(id.split('-'))
     }
   }, [router.query])
-    return (
-        <>
-            <ChordSearch urlArray={array} />
-        </>
-    );
+  return (
+    <>
+      <ChordSearch urlArray={array} />
+    </>
+  )
 }
 
 export default Post
-            

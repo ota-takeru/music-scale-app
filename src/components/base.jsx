@@ -16,7 +16,7 @@ import { useRouter } from 'next/router'
 import Footer from './footer'
 
 const ScaleSearch = (props) => {
-  const { queryKey, queryScale, urlArray } = props
+  const { urlArray } = props
   const router = useRouter()
   const [selectedKey, setSelectedKey] = useState('')
   const [selectedScale, setSelectedScale] = useState('')
@@ -80,7 +80,7 @@ const ScaleSearch = (props) => {
       <Container>
         <SubContainer isresponsive="false">
           <KeySelector
-          label={t.SELECTED_KEY}
+            label={t.SELECTED_KEY}
             setSelectedKey={setSelectedKey}
             selectedKey={selectedKey}
           />
@@ -94,7 +94,7 @@ const ScaleSearch = (props) => {
           </Button> */}
         </SubContainer>
         <SubContainer isresponsive="true">
-          <DisplayScaleAndKey array={finaldata}/>
+          <DisplayScaleAndKey array={finaldata} urlArray={urlArray} />
           <PianoRoll finaldata={finaldata} setFinaldata={setFinaldata} />
         </SubContainer>
         <div>{/* <Guitar /> */}</div>

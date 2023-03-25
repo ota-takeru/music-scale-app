@@ -5,7 +5,7 @@ import { useLocale } from '../hooks/useLocale'
 
 const ChordSelector = (props) => {
   const options = [
-    { value: 'major', label: 'major' },   
+    { value: 'major', label: 'major' },
     { value: '6', label: '6' },
     { value: '7', label: '7' },
     { value: '7sus4', label: '7sus4' },
@@ -36,10 +36,7 @@ const ChordSelector = (props) => {
   const { t } = useLocale()
   return (
     <div className={Styles.container}>
-      <select
-        onChange={handleChange}
-        className={Styles.baseSelector}
-      >
+      <select onChange={handleChange} className={Styles.baseSelector}>
         <option value="" hidden>
           {chord ? chord : t.SELECTED_CHORD}
         </option>

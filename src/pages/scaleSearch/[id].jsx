@@ -23,7 +23,7 @@ function Post() {
       <Base queryKey={array[0]} queryScale={array[1]} urlArray={array}>
         <Container>
           <h1>{array[0] + ' ' + convertScale[array[1]]}</h1>
-          <DisplayChords array={array} />
+          <DisplayChords array={array} urlArray={array} />
         </Container>
       </Base>
     </>

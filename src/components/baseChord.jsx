@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 import Footer from './footer'
 import KeySelector from '@/src/components/keySelector.jsx'
 import ChordSelector from '@/src/components/chordSelector.jsx'
-import {fetchChordsWithName} from '@/src/api/index.js'
+import { fetchChordsWithName } from '@/src/api/index.js'
 import DisplayScaleAndKey from '@/src/components/displayScaleAndKey.jsx'
 
 const ChordSearch = (props) => {
@@ -50,9 +50,7 @@ const ChordSearch = (props) => {
     if (!key || !type) {
       return
     }
-    await router.push(
-      `/chordSearch/${encodeURIComponent(key)}-${type}`
-    )
+    await router.push(`/chordSearch/${encodeURIComponent(key)}-${type}`)
     const response = await fetchChordsWithName(key, type)
     setFinalchord(response[0])
   }
@@ -74,9 +72,9 @@ const ChordSearch = (props) => {
       <Head />
       <Header href="/chordSearch" title={t.CHORD_TITLE} />
       <Container>
-        <SubContainer isresponsive="false" >
+        <SubContainer isresponsive="false">
           <KeySelector
-          label={t.SELECTED_ROOT    }
+            label={t.SELECTED_ROOT}
             selectedKey={selectedKey}
             setSelectedKey={setSelectedKey}
           />
@@ -86,13 +84,8 @@ const ChordSearch = (props) => {
           />
         </SubContainer>
         <SubContainer isresponsive="true">
-          <DisplayScaleAndKey
-            arrayChord={finalchord}
-          />
-          <PianoRoll
-            finalchord={finalchord}
-            setFinalchord={setFinalchord}
-          />
+          <DisplayScaleAndKey arrayChord={finalchord} urlArray={urlArray} />
+          <PianoRoll finalchord={finalchord} setFinalchord={setFinalchord} />
         </SubContainer>
       </Container>
     </>

@@ -4,6 +4,7 @@ import { fetchKey, fetchChords } from '../api'
 import { useConvertKeyName } from '../hooks/useConvertKeyName'
 import { useLocale } from '../hooks/useLocale'
 import Link from 'next/link'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 
 const DisplayChords = (props) => {
   const { BigToSmall, SmallToBig } = useConvertKeyName()
@@ -11,10 +12,9 @@ const DisplayChords = (props) => {
   const [displayThreeChords, setDisplayThreeChords] = useState([])
   const [displayFourChords, setDisplayFourChords] = useState([])
   const [displayOthers, setDisplayOthers] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    console.log(array)
-  }, [array])
+  useEffect(() => {}, [array])
   const FetchKey = async (key, scale) => {
     if (!key || !scale) return
     const response = await fetchKey(key, scale)
@@ -24,23 +24,25 @@ const DisplayChords = (props) => {
   }
 
   const FetchData = async (array) => {
-    const response = await fetchChords(array);
-    const filteredResponse = response.map((chord) => {
-      const trueKeys = Object.keys(chord).filter(
-        (key) => chord[key] && key !== 'root' && key !== 'type'
-      );
-      trueKeys.unshift(BigToSmall[chord.root], chord.type);
-      const filtered = trueKeys.slice(2);
-      if (filtered.every((item) => array.includes(item))) {
-        return trueKeys;
-      }
-      return null;
-    }).filter(Boolean);
-    return filteredResponse;
+    const response = await fetchChords(array)
+    const filteredResponse = response
+      .map((chord) => {
+        const trueKeys = Object.keys(chord).filter(
+          (key) => chord[key] && key !== 'root' && key !== 'type'
+        )
+        trueKeys.unshift(BigToSmall[chord.root], chord.type)
+        const filtered = trueKeys.slice(2)
+        if (filtered.every((item) => array.includes(item))) {
+          return trueKeys
+        }
+        return null
+      })
+      .filter(Boolean)
+    return filteredResponse
   }
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       const a = await FetchKey(array[0], array[1])
       const b = await FetchData(a)
       console.log(b)
@@ -54,17 +56,17 @@ const DisplayChords = (props) => {
               if (b[j].length === 5) {
                 threeChords[a[i]] = [
                   ...(threeChords[a[i]] || []),
-                  [SmallToBig[b[j][0]], (b[j][1] ? b[j][1] : '')],
+                  [SmallToBig[b[j][0]], b[j][1] ? b[j][1] : ''],
                 ]
               } else if (b[j].length === 6) {
                 fourChords[a[i]] = [
                   ...(fourChords[a[i]] || []),
-                  [SmallToBig[b[j][0]], (b[j][1] ? b[j][1] : '')],
+                  [SmallToBig[b[j][0]], b[j][1] ? b[j][1] : ''],
                 ]
               } else {
                 others[a[i]] = [
                   ...(others[a[i]] || []),
-                  [SmallToBig[b[j][0]], (b[j][1] ? b[j][1] : '')],
+                  [SmallToBig[b[j][0]], b[j][1] ? b[j][1] : ''],
                 ]
               }
             }
@@ -81,6 +83,7 @@ const DisplayChords = (props) => {
         }
         if (Object.keys(threeChords).length > 0) {
           setDisplayThreeChords(threeChords)
+          setIsLoading(false)
         }
         if (Object.keys(fourChords).length > 0) {
           setDisplayFourChords(fourChords)
@@ -100,27 +103,84 @@ const DisplayChords = (props) => {
       <tbody>
         <tr>
           <td key="threeChords">{t.THREE_CHORDS}</td>
-          {Object.keys(displayThreeChords).map((key) => (
-            <td key={key}>{displayThreeChords[key].map((value) => (
-              <p key={"p" + value[0] + value[1]}><Link key={value[0] + value[1]} href={`/chordSearch/${encodeURIComponent(value[0] + "-" + value[1])}`}>{value[0] + value[1]}</Link> </p>
-            ))}</td>
-          ))}
+          {isLoading ? (
+            <td>
+              <Spiner>
+                <AiOutlineLoading3Quarters />
+              </Spiner>
+            </td>
+          ) : (
+            Object.keys(displayThreeChords).map((key) => (
+              <td key={key}>
+                {displayThreeChords[key].map((value) => (
+                  <p key={'p' + value[0] + value[1]}>
+                    <Link
+                      key={value[0] + value[1]}
+                      href={`/chordSearch/${encodeURIComponent(
+                        value[0] + '-' + value[1]
+                      )}`}
+                    >
+                      {value[0] + value[1]}
+                    </Link>{' '}
+                  </p>
+                ))}
+              </td>
+            ))
+          )}
         </tr>
         <tr>
-          <td key="fourChords" >{t.FOUR_CHORDS}</td>
-          {Object.keys(displayFourChords).map((key) => (
-            <td key={key}>{displayFourChords[key].map((value) => (
-              <p key={"p" + value[0] + value[1]}><Link key={value[0] + value[1]} href={`/chordSearch/${encodeURIComponent(value[0] + "-" + value[1])}`}>{value[0] + value[1]}</Link> </p>
-            ))}</td>
-          ))}
+          <td key="fourChords">{t.FOUR_CHORDS}</td>
+          {isLoading ? (
+            <td>
+              <Spiner>
+                <AiOutlineLoading3Quarters />
+              </Spiner>
+            </td>
+          ) : (
+            Object.keys(displayFourChords).map((key) => (
+              <td key={key}>
+                {displayFourChords[key].map((value) => (
+                  <p key={'p' + value[0] + value[1]}>
+                    <Link
+                      key={value[0] + value[1]}
+                      href={`/chordSearch/${encodeURIComponent(
+                        value[0] + '-' + value[1]
+                      )}`}
+                    >
+                      {value[0] + value[1]}
+                    </Link>
+                  </p>
+                ))}
+              </td>
+            ))
+          )}
         </tr>
         <tr>
           <td key="others">{t.OTHERS}</td>
-          {Object.keys(displayOthers).map((key) => (
-            <td key={key}>{displayOthers[key].map((value) => (
-              <p key={"p" + value[0] + value[1]}><Link key={value[0] + value[1]} href={`/chordSearch/${encodeURIComponent(value[0] + "-" + value[1])}`}>{value[0] + value[1]}</Link> </p>
-            ))}</td>
-          ))}
+          {isLoading ? (
+            <td>
+              <Spiner>
+                <AiOutlineLoading3Quarters />
+              </Spiner>
+            </td>
+          ) : (
+            Object.keys(displayOthers).map((key) => (
+              <td key={key}>
+                {displayOthers[key].map((value) => (
+                  <p key={'p' + value[0] + value[1]}>
+                    <Link
+                      key={value[0] + value[1]}
+                      href={`/chordSearch/${encodeURIComponent(
+                        value[0] + '-' + value[1]
+                      )}`}
+                    >
+                      {value[0] + value[1]}
+                    </Link>
+                  </p>
+                ))}
+              </td>
+            ))
+          )}
         </tr>
       </tbody>
     </Table>
@@ -141,13 +201,13 @@ const Table = styled.table`
     border-bottom: 1px solid #ddd; /* セルの下線を表示する */
     word-break: normal;
     white-space: wrap;
-    p{
+    p {
       display: inline;
       margin: 0;
       font-size: 1.1em;
-      &:hover{
+      &:hover {
         text-decoration: underline;
-        }
+      }
     }
     a {
       text-decoration: none;
@@ -174,4 +234,17 @@ const Table = styled.table`
       writing-mode: horizontal-tb;
     }
   }
+`
+const Spiner = styled.span`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: spin 1s linear infinite;
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
 `
