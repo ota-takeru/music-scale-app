@@ -46,14 +46,14 @@ const ChordSearch = (props) => {
   //   )
   // }
 
-  const getKey = async (key, chord) => {
-    if (!key || !chord) {
+  const getKey = async (key, type) => {
+    if (!key || !type) {
       return
     }
     await router.push(
-      `/chordSearch/${encodeURIComponent(selectedKey)}-${selectedChord}`
+      `/chordSearch/${encodeURIComponent(key)}-${type}`
     )
-    const response = await fetchChordsWithName(key, chord)
+    const response = await fetchChordsWithName(key, type)
     setFinalchord(response[0])
   }
   useEffect(() => {

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { fetchKey, fetchChords } from '../api'
 import { useConvertKeyName } from '../hooks/useConvertKeyName'
 import { useLocale } from '../hooks/useLocale'
+import Link from 'next/link'
 
 const DisplayChords = (props) => {
   const { BigToSmall, SmallToBig } = useConvertKeyName()
@@ -53,17 +54,17 @@ const DisplayChords = (props) => {
               if (b[j].length === 5) {
                 threeChords[a[i]] = [
                   ...(threeChords[a[i]] || []),
-                  SmallToBig[b[j][0]] + (b[j][1] ? b[j][1] : ''),
+                  [SmallToBig[b[j][0]], (b[j][1] ? b[j][1] : '')],
                 ]
               } else if (b[j].length === 6) {
                 fourChords[a[i]] = [
                   ...(fourChords[a[i]] || []),
-                  SmallToBig[b[j][0]] + (b[j][1] ? b[j][1] : ''),
+                  [SmallToBig[b[j][0]], (b[j][1] ? b[j][1] : '')],
                 ]
               } else {
                 others[a[i]] = [
                   ...(others[a[i]] || []),
-                  SmallToBig[b[j][0]] + (b[j][1] ? b[j][1] : ''),
+                  [SmallToBig[b[j][0]], (b[j][1] ? b[j][1] : '')],
                 ]
               }
             }
@@ -98,21 +99,27 @@ const DisplayChords = (props) => {
       <thead></thead>
       <tbody>
         <tr>
-          <td>{t.THREE_CHORDS}</td>
+          <td key="threeChords">{t.THREE_CHORDS}</td>
           {Object.keys(displayThreeChords).map((key) => (
-            <td key={key}>{displayThreeChords[key].join(', ')}</td>
+            <td key={key}>{displayThreeChords[key].map((value) => (
+              <p key={"p" + value[0] + value[1]}><Link key={value[0] + value[1]} href={`/chordSearch/${encodeURIComponent(value[0] + "-" + value[1])}`}>{value[0] + value[1]}</Link> </p>
+            ))}</td>
           ))}
         </tr>
         <tr>
-          <td>{t.FOUR_CHORDS}</td>
+          <td key="fourChords" >{t.FOUR_CHORDS}</td>
           {Object.keys(displayFourChords).map((key) => (
-            <td key={key}>{displayFourChords[key].join(', ')}</td>
+            <td key={key}>{displayFourChords[key].map((value) => (
+              <p key={"p" + value[0] + value[1]}><Link key={value[0] + value[1]} href={`/chordSearch/${encodeURIComponent(value[0] + "-" + value[1])}`}>{value[0] + value[1]}</Link> </p>
+            ))}</td>
           ))}
         </tr>
         <tr>
-          <td>{t.OTHERS}</td>
+          <td key="others">{t.OTHERS}</td>
           {Object.keys(displayOthers).map((key) => (
-            <td key={key}>{displayOthers[key].join(', ')}</td>
+            <td key={key}>{displayOthers[key].map((value) => (
+              <p key={"p" + value[0] + value[1]}><Link key={value[0] + value[1]} href={`/chordSearch/${encodeURIComponent(value[0] + "-" + value[1])}`}>{value[0] + value[1]}</Link> </p>
+            ))}</td>
           ))}
         </tr>
       </tbody>
@@ -130,10 +137,22 @@ const Table = styled.table`
   th,
   td {
     text-align: center;
-    width: auto;
     padding: 8px;
     border-bottom: 1px solid #ddd; /* セルの下線を表示する */
-    white-space: pre-line;
+    word-break: normal;
+    white-space: wrap;
+    p{
+      display: inline;
+      margin: 0;
+      font-size: 1.1em;
+      &:hover{
+        text-decoration: underline;
+        }
+    }
+    a {
+      text-decoration: none;
+      color: #333;
+    }
   }
   th {
     background-color: #f2f2f2; /* ヘッダーの背景色を設定する */
@@ -146,12 +165,12 @@ const Table = styled.table`
   }
 
   @media screen and (max-width: 850px) {
-    // display: flex;
-    // flex-direction: column;
     writing-mode: vertical-lr;
-
+    width: 80%;
+    padding: 10px;
     th,
     td {
+      width: 5em;
       writing-mode: horizontal-tb;
     }
   }

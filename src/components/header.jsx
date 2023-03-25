@@ -169,16 +169,17 @@ const MenuTab = styled.div`
   position: fixed;
   height: 100%;
   z-index: 4;
-  width: 0;
   overflow: hidden;
-  transition: width 0.2s ease;
+  transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  transform: translateX(-100%);
+  visibility: visible;
   ${({ displayMenu }) =>
     displayMenu &&
     `
-    width: 18em;
+    transform: translateX(0);
   `}
   h1 {
     font-size: 1.5em;
@@ -189,7 +190,8 @@ const MenuTab = styled.div`
     padding: 0;
     margin-top: 5em;
     opacity: 0;
-    transition: width 0.1s ease;
+    overflow: hidden;
+    transition: 0.3s ease;
     ${({ displayMenu }) =>
       displayMenu &&
       `
@@ -244,7 +246,6 @@ const Ul = styled.ul`
 const Head = styled.header`
   width: 100%;
   text-align: center;
-  // margin-bottom: 20px;
   h1 {
     display: inline-block;
     font-size: 2em;
