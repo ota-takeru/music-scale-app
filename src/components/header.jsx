@@ -13,6 +13,7 @@ const Header = (props) => {
   const [displayMenu, setDisplayMenu] = useState(true)
   const handleClick = () => {
     setIsDisplay(!isDisplay)
+    // setDisplayMenu(!displayMenu)
   }
   const handleMenu = () => {
     setDisplayMenu(!displayMenu)
@@ -52,9 +53,6 @@ const Header = (props) => {
           <Link href="/chordSearch" passHref>
             <li>{t.CHORD_TITLE}</li>
           </Link>
-          {/* <Link href="/" passHref>
-            <li>{t.HOME_TITLE}</li>
-          </Link> */}
         </ul>
         <Language>
           <Ul isDisplay={isDisplay}>
@@ -82,11 +80,9 @@ const Header = (props) => {
           <Footer>
             <Home>
               <Link href="/">
-                {/* <span> */}
                 <IconContext.Provider value={{ size: '2em' }}>
                   <RxHome />
                 </IconContext.Provider>
-                {/* </span> */}
               </Link>
             </Home>
             <Button onClick={handleClick}>
@@ -114,11 +110,7 @@ const Footer = styled.div`
   border-top: 1px solid #ccc;
   padding-top: 10px;
   transition: width 0.1s ease;
-  ${({ displayMenu }) =>
-    displayMenu &&
-    `
-    opacity: 100%;
-  `}
+  ${({ displayMenu }) => displayMenu && `opacity: 100%;`}
 `
 const Home = styled.div`
   display: flex;
@@ -165,17 +157,17 @@ const Menu = styled.button`
   }
 `
 const MenuTab = styled.div`
-  background-color: #eee;
+  // background-color: #eee;
   position: fixed;
   height: 100%;
-  z-index: 4;
   overflow: hidden;
   transition: all 0.2s ease;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
   transform: translateX(-100%);
-  visibility: visible;
+  z-index: -1;
+  border-right: 1px solid #ccc;
   ${({ displayMenu }) =>
     displayMenu &&
     `
@@ -188,7 +180,7 @@ const MenuTab = styled.div`
   }
   ul {
     padding: 0;
-    margin-top: 6em;
+    margin-top: 7em;
     opacity: 0;
     overflow: hidden;
     transition: 0.3s ease;
@@ -244,12 +236,18 @@ const Ul = styled.ul`
   }
 `
 const Head = styled.header`
+  background-color: #fff;
+  z-index: 6;
   width: 100%;
-  text-align: center;
+  height: 70px;
+  // border-bottom: 1px solid #ccc;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: left;
   h1 {
-    display: inline-block;
+    margin-left: 5em;
     font-size: 2em;
-    text-align: center;
   }
   a {
     color: #333;

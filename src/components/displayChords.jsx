@@ -45,7 +45,6 @@ const DisplayChords = (props) => {
     ;(async () => {
       const a = await FetchKey(array[0], array[1])
       const b = await FetchData(a)
-      console.log(b)
       if (a && b) {
         const threeChords = {}
         const fourChords = {}
@@ -148,7 +147,7 @@ const DisplayChords = (props) => {
                       )}`}
                     >
                       {value[0] + value[1]}
-                    </Link>
+                    </Link>{' '}
                   </p>
                 ))}
               </td>
@@ -175,7 +174,7 @@ const DisplayChords = (props) => {
                       )}`}
                     >
                       {value[0] + value[1]}
-                    </Link>
+                    </Link>{' '}
                   </p>
                 ))}
               </td>
@@ -223,7 +222,6 @@ const Table = styled.table`
     padding: 16px 16px;
     background-color: #f2f2f2; /* ヘッダーの背景色を設定する */
   }
-
   @media screen and (max-width: 850px) {
     writing-mode: vertical-lr;
     width: 80%;
