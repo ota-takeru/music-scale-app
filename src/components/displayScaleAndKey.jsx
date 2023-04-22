@@ -35,9 +35,10 @@ const DisplayScaleAndKey = (props) => {
   }
 
   const fetchDataChord = async () => {
+    // ルートとキー以外がfalseの場合は何もしない
     const rangeArr = Object.values(arrayChord).slice(2)
     if (rangeArr.every((element) => element === false)) return
-    //キーボードのデータを配列として受けとり、それを元にfetchKeyWithNoteを呼び出す
+    //キーボードのデータを配列として受けとり、それを元にfetchKeyWithNoteを呼び出す 
     const result = await fetchChordsWithNote(arrayChord)
     setIsLoading(false)
     if (!result || Object.values(result).length === 0) {
@@ -61,7 +62,7 @@ const DisplayScaleAndKey = (props) => {
     if (array) {
       fetchData()
     }
-    if (arrayChord?.[Object.keys(arrayChord)[0]] ?? '') {
+    if (arrayChord) {
       fetchDataChord()
     }
   }, [array, arrayChord])

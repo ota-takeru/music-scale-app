@@ -14,7 +14,6 @@ const DisplayChords = (props) => {
   const [displayOthers, setDisplayOthers] = useState([])
   const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {}, [array])
   const FetchKey = async (key, scale) => {
     if (!key || !scale) return
     const response = await fetchKey(key, scale)

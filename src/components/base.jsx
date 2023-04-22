@@ -15,7 +15,7 @@ import Head from './head'
 import { useRouter } from 'next/router'
 import Footer from './footer'
 import Fingerboard from './fingerBoard'
-import { RxDoubleArrowDown } from 'react-icons/rx'
+import { RxDoubleArrowUp } from 'react-icons/rx'
 import { IconContext } from 'react-icons'
 
 const ScaleSearch = (props) => {
@@ -63,9 +63,6 @@ const ScaleSearch = (props) => {
   useEffect(() => {
     getKey(selectedKey, selectedScale)
   }, [selectedKey, selectedScale])
-  useEffect(() => {
-    console.log(displayPiano)
-  }, [displayPiano])
 
   const { t } = useLocale()
   return (
@@ -98,7 +95,7 @@ const ScaleSearch = (props) => {
           <Div>
             <SubHead onClick={handlePiano} displayPiano={displayPiano}>
               <IconContext.Provider value={{ size: '2em' }}>
-                <RxDoubleArrowDown />
+                <RxDoubleArrowUp />
               </IconContext.Provider>
               <h1>piano</h1>
             </SubHead>
@@ -110,7 +107,7 @@ const ScaleSearch = (props) => {
               displayFingerBoard={displayFingerBoard}
             >
               <IconContext.Provider value={{ size: '2em' }}>
-                <RxDoubleArrowDown />
+                <RxDoubleArrowUp />
               </IconContext.Provider>
               <h1>guitar</h1>
             </SubHead>

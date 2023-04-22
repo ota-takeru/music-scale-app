@@ -9,10 +9,14 @@ import { useLocale } from '../hooks/useLocale'
 import Head from './head'
 import { useRouter } from 'next/router'
 import Footer from './footer'
-import KeySelector from '@/src/components/keySelector.jsx'
-import ChordSelector from '@/src/components/chordSelector.jsx'
+import KeySelector from './keySelector'
+import ChordSelector from './chordSelector'
 import { fetchChordsWithName } from '@/src/api/index.js'
-import DisplayScaleAndKey from '@/src/components/displayScaleAndKey.jsx'
+import DisplayScaleAndKey from './displayScaleAndKey'
+import Fingerboard from './fingerBoard'
+import { IconContext } from 'react-icons'
+import { RxDoubleArrowUp } from 'react-icons/rx'
+
 
 const ChordSearch = (props) => {
   const { urlArray } = props
@@ -45,6 +49,14 @@ const ChordSearch = (props) => {
   //     `/scaleSearch/${encodeURIComponent(selectedKey)}-${selectedScale}`
   //   )
   // }
+  const [displayPiano, setDisplayPiano] = useState(true)
+  const [displayFingerBoard, setDisplayFingerBoard] = useState(false)
+  const handlePiano = () => {
+    setDisplayPiano(!displayPiano)
+  }
+  const handleFingerBoard = () => {
+    setDisplayFingerBoard(!displayFingerBoard)
+  }
 
   const getKey = async (key, type) => {
     if (!key || !type) {
@@ -85,7 +97,29 @@ const ChordSearch = (props) => {
         </SubContainer>
         <SubContainer isresponsive="true">
           <DisplayScaleAndKey arrayChord={finalchord} urlArray={urlArray} />
-          <PianoRoll finalchord={finalchord} setFinalchord={setFinalchord} />
+          <Div>
+            <SubHead onClick={handlePiano} displayPiano={displayPiano}>
+              <IconContext.Provider value={{ size: '2em' }}>
+                <RxDoubleArrowUp />
+              </IconContext.Provider>
+              <h1>piano</h1>
+            </SubHead>
+            {displayPiano && (
+              <PianoRoll finaldata={finalchord} setFinaldata={setFinalchord} />
+            )}
+            <SubHead
+              onClick={handleFingerBoard}
+              displayFingerBoard={displayFingerBoard}
+            >
+              <IconContext.Provider value={{ size: '2em' }}>
+                <RxDoubleArrowUp />
+              </IconContext.Provider>
+              <h1>guitar</h1>
+            </SubHead>
+            {displayFingerBoard && (
+              <Fingerboard finaldata={finalchord} setFinaldata={setFinalchord} />
+            )}
+          </Div>
         </SubContainer>
       </Container>
     </>
@@ -93,3 +127,55 @@ const ChordSearch = (props) => {
 }
 
 export default ChordSearch
+
+const Div = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 34em;
+  height: 100%;
+  padding: 0 10px 0 10px;
+  background-color: #f5f5f5;
+  margin: 0 0 20px 0;
+  transform-origin: top left;
+  @media (max-width: 600px) {
+    width: 23em;
+  }
+  @media (max-width: 400px) {
+    width: 19em;
+  }
+`
+const SubHead = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 10px;
+  width: 100%;
+  height: 40px;
+  border-bottom: 1px solid #ccc;
+  border-top: 1px solid #ccc;
+  cursor: pointer;
+  @media (max-width: 600px) {
+    height: 40px;
+    margin-bottom: 10px;
+  }
+  &:hover {
+    background-color: #eee;
+  }
+
+  svg {
+    transition: 0.1s ease;
+    ${({ displayPiano }) =>
+      displayPiano &&
+      `
+    transform: rotate(180deg);
+    `}
+    ${({ displayFingerBoard }) =>
+      displayFingerBoard && `transform: rotate(180deg);`}
+  }
+  h1 {
+    margin-left: 30px;
+    user-select: none;
+    font-size: 1.3em;
+  }
+`

@@ -4,7 +4,9 @@ import styled from 'styled-components'
 import { useReset } from '../hooks/useReset'
 import ResetButton from './resetButton'
 
-const Fingerboard = ({ finaldata, setFinaldata }) => {
+const Fingerboard = (props) => {
+  const finaldata = props.finaldata ? props.finaldata : finalchord
+  const setFinaldata = props.setFinaldata ? props.setFinaldata : setFinalchord
   const Reset = () => {
     useReset(finaldata, setFinaldata)
   }

@@ -4,8 +4,8 @@ import React from 'react'
 
 const WhiteKey = (props) => {
   const [down, setDown] = useState('false')
-  const setFinaldata = props.setFinaldata
-  const finaldata = props.finaldata
+  const finaldata = props.finaldata ? props.finaldata : props.finalchord
+  const setFinaldata =  props.setFinaldata ? props.setFinaldata : props.setFinalchord
   const n = props.n
   const setPrimaryKey = props.setPrimaryKey
   const primaryKey = props.primaryKey

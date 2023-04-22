@@ -5,10 +5,10 @@ import BlackKey from './blackKey'
 import React from 'react'
 
 const PianoAppearance = (props) => {
-  const finaldata = props.finaldata ? props.finaldata : props.finalchord
+  const finaldata = props.finaldata
   const setFinaldata = props.setFinaldata
-    ? props.setFinaldata
-    : props.setFinalchord
+  const finalchord = props.finalchord
+  const setFinalchord = props.setFinalchord
   const primaryKey = props.primaryKey
   const setPrimaryKey = props.setPrimaryKey
 
@@ -52,6 +52,8 @@ const PianoAppearance = (props) => {
           n={3}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <BlackKey
           isdown={finaldata.c_sharp.toString()}
@@ -62,6 +64,8 @@ const PianoAppearance = (props) => {
           n={4}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <WhiteKey
           isdown={finaldata.d.toString()}
@@ -72,6 +76,8 @@ const PianoAppearance = (props) => {
           n={5}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <BlackKey
           isdown={finaldata.d_sharp.toString()}
@@ -82,6 +88,8 @@ const PianoAppearance = (props) => {
           n={6}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <WhiteKey
           isdown={finaldata.e.toString()}
@@ -92,6 +100,8 @@ const PianoAppearance = (props) => {
           n={7}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <WhiteKey
           isdown={finaldata.f.toString()}
@@ -102,6 +112,8 @@ const PianoAppearance = (props) => {
           n={8}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <BlackKey
           isdown={finaldata.f_sharp.toString()}
@@ -112,6 +124,8 @@ const PianoAppearance = (props) => {
           n={9}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <WhiteKey
           isdown={finaldata.g.toString()}
@@ -122,6 +136,8 @@ const PianoAppearance = (props) => {
           n={10}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <BlackKey
           isdown={finaldata.g_sharp.toString()}
@@ -132,6 +148,8 @@ const PianoAppearance = (props) => {
           n={11}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <WhiteKey
           isdown={finaldata.a.toString()}
@@ -142,6 +160,8 @@ const PianoAppearance = (props) => {
           n={0}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <BlackKey
           isdown={finaldata.a_sharp.toString()}
@@ -152,6 +172,8 @@ const PianoAppearance = (props) => {
           n={1}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
         <WhiteKey
           isdown={finaldata.b.toString()}
@@ -162,6 +184,8 @@ const PianoAppearance = (props) => {
           n={2}
           finaldata={finaldata}
           setFinaldata={setFinaldata}
+          finalchord={finalchord}
+          setFinalchord={setFinalchord}
         />
       </div>
     </div>
