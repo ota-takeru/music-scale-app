@@ -157,7 +157,7 @@ const Menu = styled.button`
   }
 `
 const MenuTab = styled.div`
-  // background-color: #eee;
+  background-color: white;
   position: fixed;
   height: 100%;
   overflow: hidden;
@@ -166,7 +166,7 @@ const MenuTab = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   transform: translateX(-100%);
-  z-index: -1;
+  z-index: 5;
   border-right: 1px solid #ccc;
   ${({ displayMenu }) =>
     displayMenu &&
@@ -208,6 +208,7 @@ const MenuTab = styled.div`
   }
 `
 const Button = styled.button`
+  z-index: 100;
   border: none;
   cursor: pointer;
   background-color: transparent;
@@ -246,7 +247,7 @@ const Head = styled.header`
   justify-content: space-between;
   align-items: left;
   h1 {
-    margin-left: 5em;
+    margin-left: 9em;
     font-size: 2em;
   }
   a {
@@ -261,5 +262,13 @@ const Head = styled.header`
     div {
       margin-right: 0;
     }
+    h1 {
+      margin-left: 7em;
+    }
+  @media (max-width: 600px) {
+    h1 {
+      margin: auto;
+      text-align: center;
+        }
   }
 `
