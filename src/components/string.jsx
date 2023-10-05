@@ -23,6 +23,7 @@ const String = ({ finaldata, setFinaldata, n }) => {
     setValuesToArray()
     setKeysToArray()
   }, [finaldata])
+  
   return (
     <Container>
       {values.map((value, index) => (
