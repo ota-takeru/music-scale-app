@@ -15,8 +15,10 @@ export default {
   MAJOR_PENTATONIC: 'Major Pentatonic',
   MINOR_PENTATONIC: 'Minor Pentatonic',
   BLUES: 'Blues',
-  DESCRIPTIONS:
-    'Discover the world of music scales and improve your playing and compsing. Our interactive website offers a visual representation of each scale',
+  DESCRIPTION_SCALE:
+    'You can search for scales by both name and constituent notes. The interactive design allows you to visually understand the constituent notes of scales that form the basis of melodies and harmonies.',
+  DESCRIPTION_CHORD:
+    'You can search for chords by both name and constituent notes. The interactive design allows you to visually understand the constituent notes of chords that add color to rhythms and melodies.',
   KEYWORDS: 'Scale,Search,Piano,Guitar,Music,Scale,Minor,Major',
   DESCRIPTIONS_HOME:
     'This site allows you to search for musical scales and chords by both name and constituent notes.',
