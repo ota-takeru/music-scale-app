@@ -81,7 +81,11 @@ const ChordSearch = (props) => {
 
   return (
     <>
-      <Head />
+      <Head 
+        title={t.CHORD_TITLE}
+        descriptions={t.DESCRIPTION_CHORD}
+        keywords={t.KEYWORDS}
+        />
       <Header href="/chordSearch" title={t.CHORD_TITLE} />
       <Container>
         <SubContainer isresponsive="false">

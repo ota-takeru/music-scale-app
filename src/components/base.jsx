@@ -68,8 +68,8 @@ const ScaleSearch = (props) => {
   return (
     <>
       <Head
-        title={t.TITLE}
-        descriptions={t.DESCRIPTIONS}
+        title={t.SCALE_TITLE}
+        descriptions={t.DESCRIPTION_SCALE}
         keywords={t.KEYWORDS}
       />
       <Header href="/scaleSearch" title={t.SCALE_TITLE} />
