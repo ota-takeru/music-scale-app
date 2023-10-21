@@ -12,9 +12,9 @@ const Fingerboard = (props) => {
   }
   return (
     <Div>
-    <Guitar>
-      <Board>
-      <FretNums> 
+      <Guitar>
+        <Board>
+        <FretNums> 
         <div style={{ display: 'flex', flex: '1', borderRight: '10px transparent black' }}></div>
         {['', '', '3', '', '5', '', '7', '', '9', '', '', '12  '].map((value) => (
           <Num key={value}><span>{value}</span></Num>
@@ -22,14 +22,14 @@ const Fingerboard = (props) => {
       </FretNums>
       <Strings>
         <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
-        <String finaldata={finaldata} setFinaldata={setFinaldata} n={2} />
-        <String finaldata={finaldata} setFinaldata={setFinaldata} n={10} />
-        <String finaldata={finaldata} setFinaldata={setFinaldata} n={5} />
-        <String finaldata={finaldata} setFinaldata={setFinaldata} n={0} />
-        <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
-      </Strings>
+          <String finaldata={finaldata} setFinaldata={setFinaldata} n={2} />
+          <String finaldata={finaldata} setFinaldata={setFinaldata} n={10} />
+          <String finaldata={finaldata} setFinaldata={setFinaldata} n={5} />
+          <String finaldata={finaldata} setFinaldata={setFinaldata} n={0} />
+          <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
+        </Strings>
       </Board>
-    </Guitar>
+      </Guitar>
       <ResetButton reset={Reset} />
     </Div>
   )
@@ -37,18 +37,18 @@ const Fingerboard = (props) => {
 export default Fingerboard
 
 const Div = styled.div`
-display: flex;
-justify-content: center;
-@media (max-width: 600px) {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-}
+  justify-content: center;
+  @media (max-width: 600px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `
 const Guitar = styled.div`
   display: flex;
     @media (max-width: 600px) {
-      margin: 6.5em 0;  
+      margin: 6.5em 0;
     }
 `
 
