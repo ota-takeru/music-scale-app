@@ -60,7 +60,7 @@ export default class MyDocument extends Document {
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
         <link rel="sitemap" href="/sitemap-0.xml" />
         <Head>
-          <GoogleAnalytics gaId="G-GDM3GZGCX4" />
+          <GoogleAnalytics gaId={process.env.GA_ID} />
         </Head>
         <body>
           <Main />
