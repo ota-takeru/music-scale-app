@@ -12,6 +12,7 @@
     "export": "next-sitemap --config sitemap.config.js && npx vercel --prod"
   },
   "dependencies": {
+    "@next/third-parties": "^14.2.4",
     "@supabase/supabase-js": "^2.8.0",
     "@vercel/analytics": "^0.1.10",
     "@vercel/fun": "^1.1.0",
@@ -22,7 +23,7 @@
     "next": "14.1.1",
     "prettier": "^2.8.4",
     "react": "^18.3.1",
-  "react-dom": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-icons": "^4.7.1",
     "react-select": "^5.7.0",
     "semver": "^7.5.4",
