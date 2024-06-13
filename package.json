@@ -12,7 +12,7 @@
     "export": "next-sitemap --config sitemap.config.js && npx vercel --prod"
   },
   "dependencies": {
-    "@next/third-parties": "^14.2.4",
+    "@next/third-parties": "^15.0.0-canary.28",
     "@supabase/supabase-js": "^2.8.0",
     "@vercel/analytics": "^0.1.10",
     "@vercel/fun": "^1.1.0",
