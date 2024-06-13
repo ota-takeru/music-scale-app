@@ -1,5 +1,6 @@
 import React from 'react'
 import { Analytics } from '@vercel/analytics/react'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import { ThemeProvider } from 'styled-components'
 import { theme } from '../utils/theme'
 import '../styles/global.css'
@@ -17,6 +18,7 @@ export default function App({ Component, pageProps }) {
     <>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
+        <GoogleAnalytics gaId={process.env.GA_ID} />
         <Analytics />
       </ThemeProvider>
     </>
