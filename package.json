@@ -14,16 +14,21 @@
   "dependencies": {
     "@supabase/supabase-js": "^2.8.0",
     "@vercel/analytics": "^0.1.10",
+    "@vercel/fun": "^1.1.0",
+    "@vercel/node": "^3.0.7",
+    "debug": "^4.3.4",
     "eslint": "8.34.0",
     "eslint-config-next": "13.2.0",
-    "next": "13.2.0",
+    "next": "^13.5.6",
     "prettier": "^2.8.4",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.7.1",
     "react-select": "^5.7.0",
+    "semver": "^7.5.4",
     "styled-components": "^5.3.6",
-    "vercel": "^31.0.4"
+    "undici": "^5.26.4",
+    "vercel": "^32.5.0"
   },
   "engines": {
     "node": "18.x"

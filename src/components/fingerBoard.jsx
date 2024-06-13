@@ -14,21 +14,31 @@ const Fingerboard = (props) => {
     <Div>
       <Guitar>
         <Board>
-        <FretNums> 
-        <div style={{ display: 'flex', flex: '1', borderRight: '10px transparent black' }}></div>
-        {['', '', '3', '', '5', '', '7', '', '9', '', '', '12  '].map((value) => (
-          <Num key={value}><span>{value}</span></Num>
-        ))}
-      </FretNums>
-      <Strings>
-        <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
-          <String finaldata={finaldata} setFinaldata={setFinaldata} n={2} />
-          <String finaldata={finaldata} setFinaldata={setFinaldata} n={10} />
-          <String finaldata={finaldata} setFinaldata={setFinaldata} n={5} />
-          <String finaldata={finaldata} setFinaldata={setFinaldata} n={0} />
-          <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
-        </Strings>
-      </Board>
+          <FretNums>
+            <div
+              style={{
+                display: 'flex',
+                flex: '1',
+                borderRight: '10px transparent black',
+              }}
+            ></div>
+            {['', '', '3', '', '5', '', '7', '', '9', '', '', '12  '].map(
+              (value) => (
+                <Num key={value}>
+                  <span>{value}</span>
+                </Num>
+              )
+            )}
+          </FretNums>
+          <Strings>
+            <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
+            <String finaldata={finaldata} setFinaldata={setFinaldata} n={2} />
+            <String finaldata={finaldata} setFinaldata={setFinaldata} n={10} />
+            <String finaldata={finaldata} setFinaldata={setFinaldata} n={5} />
+            <String finaldata={finaldata} setFinaldata={setFinaldata} n={0} />
+            <String finaldata={finaldata} setFinaldata={setFinaldata} n={7} />
+          </Strings>
+        </Board>
       </Guitar>
       <ResetButton reset={Reset} />
     </Div>
@@ -47,14 +57,14 @@ const Div = styled.div`
 `
 const Guitar = styled.div`
   display: flex;
-    @media (max-width: 600px) {
-      margin: 6.5em 0;
-    }
+  @media (max-width: 600px) {
+    margin: 6.5em 0;
+  }
 `
 
 const Board = styled.div`
-display: flex;
-flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
   @media (max-width: 600px) {
     transform: rotate(90deg);
@@ -71,10 +81,10 @@ const Strings = styled.div`
 `
 
 const FretNums = styled.div`
-background-color: transparent;
+  background-color: transparent;
   display: flex;
   flex-direction: row;
-  width:  100%;
+  width: 100%;
   height: 30px;
   position: relative;
   @media (max-width: 600px) {
@@ -93,5 +103,3 @@ const Num = styled.div`
     }
   }
 `
-
-
