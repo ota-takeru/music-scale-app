@@ -18,7 +18,7 @@ export default function App({ Component, pageProps }) {
     <>
       <ThemeProvider theme={theme}>
         <Component {...pageProps} />
-        <GoogleAnalytics gaId={process.env.GA_ID} />
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} />
         <Analytics />
       </ThemeProvider>
     </>
