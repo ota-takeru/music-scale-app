@@ -1,0 +1,51 @@
+# Page snapshot
+
+```yaml
+- banner:
+  - button:
+    - img
+  - list:
+    - link "スケール検索":
+      - /url: /scaleSearch
+      - listitem: スケール検索
+    - link "コード検索":
+      - /url: /chordSearch
+      - listitem: コード検索
+  - link:
+    - /url: /
+    - img
+  - button:
+    - img
+  - heading "Music Scale App" [level=1]:
+    - link "Music Scale App":
+      - /url: /
+- heading "スケール検索" [level=1]
+- paragraph: 音階やのハーモニーの中心となるスケール名と構成音の両方から、スケールを検索することができます。インタラクティブなデザインにより、メロディーや和音の基盤となるスケールの構成音を視覚的に深く理解することができます。
+- combobox "キー":
+  - option "A"
+  - option "A#"
+  - option "B"
+  - option "C"
+  - option "C#"
+  - option "D"
+  - option "D#"
+  - option "E"
+  - option "F"
+  - option "F#"
+  - option "G"
+  - option "G#"
+- combobox "スケールを選択":
+  - option "メジャー"
+  - option "マイナー"
+  - option "ハーモニックマイナー"
+  - option "メロディックマイナー"
+  - option "メジャーペンタトニック"
+  - option "マイナーペンタトニック"
+- img
+- text: 楽器を表示
+- contentinfo:
+  - link:
+    - /url: /scaleSearch
+    - paragraph
+- alert
+```

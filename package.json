@@ -3,13 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write \"./src/**/*.{js,jsx}\"",
     "debug": "node --inspect=0.0.0.0:9229 node_modules/next/dist/bin/next",
-    "export": "next-sitemap --config sitemap.config.js && npx vercel --prod"
+    "export": "next-sitemap --config sitemap.config.js && npx vercel --prod",
+    "analyze": "ANALYZE=true npm run build",
+    "build:analyze": "npm run analyze",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:static": "npm run build && npm run start & sleep 5 && playwright test && pkill -f 'next start'",
+    "test:dev": "npm run dev & sleep 10 && playwright test && pkill -f 'next dev'"
   },
   "dependencies": {
     "@next/third-parties": "^15.0.0-canary.28",
@@ -17,6 +24,7 @@
     "@vercel/analytics": "^0.1.10",
     "@vercel/fun": "^1.1.0",
     "@vercel/node": "^3.0.7",
+    "critters": "^0.0.23",
     "debug": "^4.3.4",
     "eslint": "8.34.0",
     "eslint-config-next": "13.2.0",
@@ -27,13 +35,18 @@
     "react-icons": "^4.7.1",
     "react-select": "^5.7.0",
     "semver": "^7.5.4",
-    "styled-components": "^5.3.6",
+    "socket.io-client": "^4.8.1",
     "vercel": "^34.2.5"
   },
   "engines": {
     "node": "18.x"
   },
   "devDependencies": {
-    "next-sitemap": "^4.0.2"
+    "@playwright/test": "^1.53.2",
+    "autoprefixer": "^10.4.21",
+    "next-sitemap": "^4.0.2",
+    "playwright": "^1.53.2",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.17"
   }
 }

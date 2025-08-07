@@ -1,0 +1,481 @@
+/* Design System - Tailwindベースの統一スタイリング */
+
+/* CSS変数によるデザイントークン */
+:root {
+  /* カラーパレット */
+  --color-primary: #007bff;
+  --color-primary-hover: #0056b3;
+  --color-secondary: #6c757d;
+  --color-success: #28a745;
+  --color-danger: #dc3545;
+  --color-warning: #ffc107;
+  --color-info: #17a2b8;
+
+  /* グレースケール */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* 楽器特有のカラー */
+  --color-key-white: #ffffff;
+  --color-key-black: #333333;
+  --color-key-active: #ff8800;
+  --color-key-primary: #ffff00;
+  --color-key-hover: #fad197;
+
+  /* シャドウ */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-piano: 3px 3px 6px 1px #ddd;
+  --shadow-key: 1px 2px 7px 1px rgba(0, 0, 0, 0.4);
+
+  /* ボーダー半径 */
+  --radius-sm: 0.125rem;
+  --radius-base: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-key: 5px;
+
+  /* アニメーション */
+  --transition-fast: 0.1s ease-in-out;
+  --transition-base: 0.2s ease-in-out;
+  --transition-slow: 0.3s ease-in-out;
+
+  /* Z-index */
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+  --z-toast: 80;
+  --z-piano-white: 1;
+  --z-piano-black: 2;
+}
+
+/* Tailwindディレクティブは globals.css で読み込み済み */
+
+/* コンポーネントクラス */
+  /* カード系 - globals.cssの定義を拡張 */
+  .card-hover {
+    @apply card transition-shadow duration-200 hover:shadow-lg;
+  }
+
+  /* ボタン系 */
+  .btn-base {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md 
+           transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  /* 特定用途のボタン - globals.cssのbtn-primaryを拡張 */
+
+  .btn-secondary {
+    @apply btn-base bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
+  }
+
+  .btn-reset {
+    @apply btn-base bg-gray-400 text-white hover:bg-gray-300 hover:border-2 
+           hover:border-gray-300 focus:ring-gray-500 w-15 h-12 text-xl rounded-lg 
+           shadow-md ml-5 max-sm:w-3/5 max-sm:mx-0 max-sm:my-5;
+  }
+
+  /* セレクター系 */
+  .selector-base {
+    @apply appearance-none bg-white border border-gray-300 rounded-md px-3 py-2 
+           text-base font-medium shadow-sm transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+           hover:border-gray-400;
+  }
+
+  .selector-dropdown {
+    @apply selector-base min-w-[100px] w-auto h-12 px-8 pr-10 text-2xl
+           bg-[url('../assets/down-arrow-svgrepo-com.svg')] bg-no-repeat 
+           bg-[right_10px_center] bg-[length:16px_auto]
+           max-sm:w-15 max-sm:text-base;
+  }
+
+  .selector-scale {
+    @apply selector-dropdown min-w-[12em]
+           max-sm:min-w-[11em];
+  }
+
+  /* 楽器系 */
+  .piano-container {
+    @apply h-96 overflow-auto;
+    box-shadow: var(--shadow-piano);
+  }
+
+  .piano-wrap {
+    @apply m-0 h-auto flex justify-center break-words relative;
+    box-shadow: var(--shadow-piano);
+    position: relative;
+    display: inline-block;
+    min-height: 320px; /* 白鍵の高さと同じ */
+  }
+
+  .white-keys-container {
+    @apply flex relative;
+    display: flex;
+    height: 320px; /* 明示的に高さを設定 */
+  }
+
+  .black-keys-container {
+    @apply absolute top-0 left-0 w-full h-full pointer-events-none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 320px; /* 白鍵と同じ高さ */
+    pointer-events: none;
+  }
+
+  .black-keys-container .black-key {
+    @apply pointer-events-auto;
+    pointer-events: auto;
+  }
+
+  .piano-wrap * {
+    @apply box-border select-none;
+    font-family: Arial;
+  }
+
+  /* 白鍵 */
+  .white-key {
+    @apply bg-white border border-gray-600 text-black cursor-pointer
+           relative z-[1] transition-colors duration-100;
+    width: 52px;
+    height: 320px;
+    border-radius: 0 0 var(--radius-key) var(--radius-key);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .white-key {
+      width: 52px;
+      height: 240px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .white-key {
+      width: 44px;
+      height: 240px;
+    }
+  }
+
+  .white-key:hover {
+    background: var(--color-key-hover);
+  }
+
+  .white-key[data-down='true'] {
+    background: var(--color-key-active);
+  }
+
+  .white-key[data-primary-key='true'][data-down='true'] {
+    background: var(--color-key-primary);
+  }
+
+  .white-key.pressing {
+    @apply border-b-[5px] border-b-gray-200 border-l-2 border-l-gray-600 
+           border-r-2 border-r-gray-600;
+    box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.3);
+  }
+
+  /* 黒鍵 */
+  .black-key {
+    @apply bg-gray-800 text-white cursor-pointer
+           absolute z-[2] border border-gray-500
+           transition-colors duration-100;
+    width: 36px;
+    height: 192px;
+    box-shadow: var(--shadow-key);
+    border-radius: 0 0 var(--radius-key) var(--radius-key);
+    top: 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 10px;
+  }
+
+  @media (max-width: 640px) {
+    .black-key {
+      width: 36px;
+      height: 144px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .black-key {
+      width: 32px;
+      height: 144px;
+    }
+  }
+
+  /* 黒鍵の具体的な位置設定 - 相対位置で設定 */
+  /* 白鍵配列: C-D-E-F-G-A-B, 白鍵: 52px幅, 黒鍵: 36px幅 */
+  .black-key[data-note='c_sharp'] {
+    /* C# - C(index:0)とD(index:1)の間 */
+    left: calc(52px * 1 - 18px); /* C-D間 - 黒鍵半幅 */
+  }
+
+  .black-key[data-note='d_sharp'] {
+    /* D# - D(index:1)とE(index:2)の間 */
+    left: calc(52px * 2 - 18px); /* D-E間 - 黒鍵半幅 */
+  }
+
+  .black-key[data-note='f_sharp'] {
+    /* F# - F(index:3)とG(index:4)の間 */
+    left: calc(52px * 4 - 18px); /* F-G間 - 黒鍵半幅 */
+  }
+
+  .black-key[data-note='g_sharp'] {
+    /* G# - G(index:4)とA(index:5)の間 */
+    left: calc(52px * 5 - 18px); /* G-A間 - 黒鍵半幅 */
+  }
+
+  .black-key[data-note='a_sharp'] {
+    /* A# - A(index:5)とB(index:6)の間 */
+    left: calc(52px * 6 - 18px); /* A-B間 - 黒鍵半幅 */
+  }
+
+  @media (max-width: 400px) {
+    .black-key[data-note='c_sharp'] {
+      left: calc(44px * 1 - 16px);
+    }
+
+    .black-key[data-note='d_sharp'] {
+      left: calc(44px * 2 - 16px);
+    }
+
+    .black-key[data-note='f_sharp'] {
+      left: calc(44px * 4 - 16px);
+    }
+
+    .black-key[data-note='g_sharp'] {
+      left: calc(44px * 5 - 16px);
+    }
+
+    .black-key[data-note='a_sharp'] {
+      left: calc(44px * 6 - 16px);
+    }
+  }
+
+  .black-key:hover {
+    @apply text-gray-800 border-0;
+    background: var(--color-key-hover);
+    box-shadow: 0 0 0 0;
+  }
+
+  .black-key[data-down='true'] {
+    @apply text-gray-800;
+    background: var(--color-key-active);
+  }
+
+  .black-key[data-down='true'][data-primary-key='true'] {
+    @apply text-gray-800;
+    background: var(--color-key-primary);
+  }
+
+  .black-key.pressing {
+    @apply border-b-4 border-b-gray-700;
+    box-shadow: 2px 1px 2px 0 rgba(0, 0, 0, 0.4);
+    background: linear-gradient(to bottom, rgb(24, 24, 24) 100%, white);
+  }
+
+  /* キーラベル */
+  .key-label {
+    @apply block text-center;
+    color: inherit;
+  }
+
+  /* 表示エリア系 */
+  .display-container {
+    @apply mx-5 rounded-lg bg-gray-100 w-80 h-full;
+    border-radius: 7px;
+  }
+
+  .display-container > h1 {
+    @apply text-2xl mx-8 mb-2.5 p-0 font-normal text-gray-700;
+  }
+
+  .display-sub-container {
+    @apply h-96 border-b border-gray-300 overflow-y-auto
+           max-sm:h-60;
+  }
+
+  .display-sub-container p {
+    @apply text-lg text-gray-700 no-underline mx-auto py-2 px-5
+           hover:bg-gray-300 hover:rounded-lg hover:cursor-pointer hover:underline;
+  }
+
+  /* スクロールバー */
+  .display-sub-container::-webkit-scrollbar {
+    @apply w-3;
+  }
+
+  .display-sub-container::-webkit-scrollbar-thumb {
+    @apply bg-gray-400 rounded-lg;
+  }
+
+  /* ローディング */
+  .loading-spinner {
+    @apply mx-auto my-16 p-0 w-1/2 h-1/2 text-white;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loading-spinner svg {
+    @apply w-full h-full;
+  }
+
+  /* レスポンシブコンテナ */
+  .responsive-container {
+    @apply flex mx-auto mb-5 p-0 justify-center w-full;
+  }
+
+  .responsive-container[data-responsive='true'] {
+    @apply max-sm:flex-col-reverse max-sm:items-center;
+  }
+
+  @media screen and (width: 600px) {
+    .responsive-container {
+      @apply mb-2.5;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .piano-wrap {
+      min-height: 240px;
+    }
+
+    .white-keys-container {
+      height: 240px;
+    }
+
+    .black-keys-container {
+      height: 240px;
+    }
+  }
+
+  @media (max-width: 400px) {
+    .piano-wrap {
+      min-height: 240px;
+    }
+
+    .white-keys-container {
+      height: 240px;
+    }
+
+    .black-keys-container {
+      height: 240px;
+    }
+  }
+
+  /* ギター系 */
+  .fretboard-container {
+    @apply flex justify-center max-sm:flex-col max-sm:items-center;
+  }
+
+  .fretboard-main {
+    @apply flex max-sm:my-26;
+  }
+
+  .fretboard-inner {
+    @apply flex flex-col max-sm:rotate-90;
+  }
+
+  .fret-numbers {
+    @apply bg-transparent flex flex-row w-full relative;
+    height: 1.875rem;
+  }
+
+  .fret-numbers > div:first-child {
+    @apply flex flex-1 border-r-[10px] border-transparent border-black;
+  }
+
+  .fret-number {
+    @apply flex flex-1 border-r-2 border-transparent border-black justify-end items-center;
+  }
+
+  .fret-number span {
+    @apply max-sm:-rotate-90;
+  }
+
+  .strings-container {
+    @apply flex flex-col bg-amber-100 w-full mb-5;
+    height: 13.75rem;
+  }
+
+  .string {
+    @apply flex flex-row w-full h-full relative;
+  }
+
+  .string::before {
+    @apply content-[''] w-full bg-blue-50 shadow-md z-10 absolute;
+    height: 0.4375rem;
+    top: 0.9375rem;
+  }
+
+  .fret {
+    @apply flex flex-1 border-r-2 border-black justify-center items-center;
+  }
+
+  .fret:first-child {
+    @apply border-r-[10px];
+  }
+
+  .fret-dot {
+    @apply rounded-full z-20 flex justify-center items-center 
+           cursor-pointer transition-colors hover:bg-gray-300 active:bg-gray-400;
+    width: 1.875rem;
+    height: 1.875rem;
+  }
+
+  .fret-dot[data-active='true'] {
+    @apply bg-red-500;
+  }
+
+  .fret-dot[data-active='false'] {
+    @apply bg-transparent;
+  }
+
+  .fret-label {
+    @apply text-sm p-0 m-0 select-none max-sm:-rotate-90;
+  }
+
+/* ユーティリティクラス */
+.text-shadow-sm {
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.text-shadow-lg {
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.15);
+}
