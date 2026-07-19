@@ -31,7 +31,7 @@ const KeySelector: React.FC<KeySelectorProps> = React.memo(
         { value: 'G', label: 'G' },
         { value: 'G#', label: 'G#' },
       ],
-      []
+      [],
     )
 
     const [key, setKey] = useState<string>(selectedKey)
@@ -43,7 +43,7 @@ const KeySelector: React.FC<KeySelectorProps> = React.memo(
         setKey(newKey)
         setSelectedKey(newKey)
       },
-      [setSelectedKey]
+      [setSelectedKey],
     )
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const KeySelector: React.FC<KeySelectorProps> = React.memo(
             {option.label}
           </option>
         )),
-      [options]
+      [options],
     )
 
     return (
@@ -76,6 +76,7 @@ const KeySelector: React.FC<KeySelectorProps> = React.memo(
           className="selector-dropdown"
           value={key}
           aria-label={ariaLabel}
+          data-testid="key-selector"
         >
           <option value="" hidden>
             {placeholderText}
@@ -84,7 +85,7 @@ const KeySelector: React.FC<KeySelectorProps> = React.memo(
         </select>
       </div>
     )
-  }
+  },
 )
 
 KeySelector.displayName = 'KeySelector'

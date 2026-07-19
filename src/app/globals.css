@@ -1,14 +1,14 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* design-system.cssをインポート */
-@import url('../styles/design-system.css');
+@import 'tailwindcss';
+@config '../../tailwind.config.js';
+@import '../styles/design-system.css';
 
 /* カスタムベーススタイル */
 @layer base {
   body {
-    font-family: system-ui, -apple-system, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      sans-serif;
     line-height: 1.6;
   }
 

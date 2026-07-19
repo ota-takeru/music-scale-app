@@ -89,7 +89,6 @@ const Header: React.FC<HeaderProps> = ({
             <li className="list-none m-2.5">
               <Link
                 href={pathname}
-                locale="en"
                 onClick={handleClick}
                 className="no-underline transition-all duration-1000 ease-in-out"
               >
@@ -99,7 +98,6 @@ const Header: React.FC<HeaderProps> = ({
             <li className="list-none m-2.5">
               <Link
                 href={pathname}
-                locale="ja"
                 onClick={handleClick}
                 className="no-underline transition-all duration-1000 ease-in-out"
               >
@@ -138,14 +136,14 @@ const Header: React.FC<HeaderProps> = ({
         </div>
       </div>
 
-      <h1 className="ml-72 text-3xl text-gray-700 my-2.5 no-underline max-[1500px]:ml-20 max-sm:mx-auto max-sm:text-center">
+      <div className="ml-72 text-3xl text-gray-700 my-2.5 no-underline max-[1500px]:ml-20 max-sm:mx-auto max-sm:text-center">
         <Link
           href={href}
           className="text-gray-700 my-2.5 no-underline active:text-white"
         >
           {title}
         </Link>
-      </h1>
+      </div>
     </header>
   )
 }

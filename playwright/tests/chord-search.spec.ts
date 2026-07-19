@@ -21,10 +21,10 @@ const setupErrorHandling = (page: Page) => {
         } catch {
           return '[unserializable]'
         }
-      })
+      }),
     )
     console.log(
-      `[console][${msg.type()}] ${msg.text()}  ↩︎  ${JSON.stringify(args)}`
+      `[console][${msg.type()}] ${msg.text()}  ↩︎  ${JSON.stringify(args)}`,
     )
   })
 
@@ -38,7 +38,7 @@ const setupErrorHandling = (page: Page) => {
       '[requestfailed]',
       req.method(),
       req.url(),
-      failure?.errorText ?? ''
+      failure?.errorText ?? '',
     )
   })
 }
@@ -51,17 +51,13 @@ test.describe('コード検索機能', () => {
 
     // ページタイトルと見出しを確認
     await page.waitForLoadState('networkidle')
-    await expect(page.locator('h1').filter({ hasText: 'コード' }).or(page.locator('h1').first())).toBeVisible()
+    await expect(page.getByRole('heading', { name: /コード/ })).toBeVisible()
 
     // キーセレクター（ルート音）が表示されることを確認
-    await expect(
-      page.locator('[data-testid="key-selector"], select, .key-selector')
-    ).toBeVisible()
+    await expect(page.getByTestId('key-selector')).toBeVisible()
 
     // コードセレクターが表示されることを確認
-    await expect(
-      page.locator('[data-testid="chord-selector"], select, .chord-selector')
-    ).toBeVisible()
+    await expect(page.getByTestId('chord-selector')).toBeVisible()
   })
 
   test('ルート音とコードタイプを選択してコード検索が実行される', async ({
@@ -298,21 +294,21 @@ test.describe('コード検索機能', () => {
   test('ページ間のナビゲーションが正しく動作する', async ({ page }) => {
     setupErrorHandling(page)
 
-        // コード検索ページから開始
+    // コード検索ページから開始
     await page.goto('/chordSearch')
     await page.waitForLoadState('networkidle')
     await expect(page.locator('h1').first()).toBeVisible()
-    
+
     // ホームページに戻る
     await page.goto('/')
     await page.waitForLoadState('networkidle')
     await expect(page.locator('a[href="/chordSearch"]').first()).toBeVisible()
-    
+
     // スケール検索ページに移動
     await page.goto('/scaleSearch')
     await page.waitForLoadState('networkidle')
     await expect(page.locator('h1').first()).toBeVisible()
-    
+
     // 再度コード検索ページに戻る
     await page.goto('/chordSearch')
     await page.waitForLoadState('networkidle')

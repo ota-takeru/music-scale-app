@@ -4,17 +4,20 @@ import React, { useMemo } from 'react'
 interface SubContainerProps {
   children: React.ReactNode
   isresponsive?: string
+  className?: string
 }
 
 const SubContainer: React.FC<SubContainerProps> = React.memo(
-  ({ children, isresponsive }) => {
+  ({ children, isresponsive, className }) => {
     // クラス名とdata属性をメモ化
     const containerProps = useMemo(
       () => ({
-        className: 'responsive-container',
+        className: ['responsive-container', className]
+          .filter(Boolean)
+          .join(' '),
         'data-responsive': isresponsive,
       }),
-      [isresponsive]
+      [className, isresponsive],
     )
 
     return <div {...containerProps}>{children}</div>

@@ -29,7 +29,7 @@ const ScaleSelector: React.FC<ScaleSelectorProps> = React.memo(
         { value: 'majorPentatonic', label: t.MAJOR_PENTATONIC },
         { value: 'minorPentatonic', label: t.MINOR_PENTATONIC },
       ],
-      [t]
+      [t],
     )
 
     const [scale, setScale] = useState<string>(selectedScale)
@@ -40,7 +40,7 @@ const ScaleSelector: React.FC<ScaleSelectorProps> = React.memo(
         setScale(newScale)
         setSelectedScale(newScale)
       },
-      [setSelectedScale]
+      [setSelectedScale],
     )
 
     useEffect(() => {
@@ -62,7 +62,7 @@ const ScaleSelector: React.FC<ScaleSelectorProps> = React.memo(
             {option.label}
           </option>
         )),
-      [options]
+      [options],
     )
 
     return (
@@ -72,6 +72,7 @@ const ScaleSelector: React.FC<ScaleSelectorProps> = React.memo(
           className="selector-scale"
           value={scale}
           aria-label="スケールを選択"
+          data-testid="scale-selector"
         >
           <option value="" hidden>
             {placeholderText}
@@ -80,7 +81,7 @@ const ScaleSelector: React.FC<ScaleSelectorProps> = React.memo(
         </select>
       </div>
     )
-  }
+  },
 )
 
 ScaleSelector.displayName = 'ScaleSelector'

@@ -16,7 +16,7 @@ test.describe('静的生成ページテスト', () => {
     await expect(page).toHaveURL(/.*scaleSearch\/C-major/)
 
     // タイトルが設定されていることを確認
-    await expect(page).toHaveTitle(/C major Scale/)
+    await expect(page).toHaveTitle(/C Major Scale/)
 
     // 基本的なコンテンツが表示されることを確認
     const content = page.locator('body')
@@ -36,7 +36,7 @@ test.describe('静的生成ページテスト', () => {
     await expect(page).toHaveURL(/.*chordSearch\/C-major/)
 
     // タイトルが設定されていることを確認
-    await expect(page).toHaveTitle(/C major Chord/)
+    await expect(page).toHaveTitle(/C Major Chord/)
 
     // 基本的なコンテンツが表示されることを確認
     const content = page.locator('body')
@@ -105,7 +105,7 @@ test.describe('静的生成ページテスト', () => {
     // タイトルタグが存在することを確認
     const title = await page.title()
     expect(title).toContain('C')
-    expect(title).toContain('major')
+    expect(title.toLowerCase()).toContain('major')
 
     // メタディスクリプションが存在することを確認
     const metaDescription = page.locator('meta[name="description"]')

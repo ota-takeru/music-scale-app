@@ -25,10 +25,10 @@ const setupErrorHandling = (page: Page) => {
         } catch {
           return '[unserializable]'
         }
-      })
+      }),
     )
     console.log(
-      `[console][${msg.type()}] ${msg.text()}  ↩︎  ${JSON.stringify(args)}`
+      `[console][${msg.type()}] ${msg.text()}  ↩︎  ${JSON.stringify(args)}`,
     )
   })
 
@@ -44,7 +44,7 @@ const setupErrorHandling = (page: Page) => {
       '[requestfailed]',
       req.method(),
       req.url(),
-      failure?.errorText ?? ''
+      failure?.errorText ?? '',
     )
   })
 }
@@ -62,8 +62,8 @@ test.describe('基本的な機能テスト', () => {
     await expect(page.locator('h1').first()).toBeVisible()
 
     // スケール検索とコード検索のリンクが存在することを確認（メインコンテンツ内の最初のリンクを選択）
-    await expect(page.locator('a[href="/scaleSearch"]').first()).toBeVisible()
-    await expect(page.locator('a[href="/chordSearch"]').first()).toBeVisible()
+    await expect(page.getByTestId('home-scale-link')).toBeVisible()
+    await expect(page.getByTestId('home-chord-link')).toBeVisible()
   })
 
   test('ナビゲーションが正しく動作する', async ({ page }) => {
@@ -73,34 +73,24 @@ test.describe('基本的な機能テスト', () => {
     await page.waitForLoadState('networkidle')
 
     // スケール検索ページへのナビゲーション（メインコンテンツの最初のリンクをクリック）
-    await page.click('a[href="/scaleSearch"]', { force: true })
+    await page.getByTestId('home-scale-link').click()
     await page.waitForURL('**/scaleSearch')
     await expect(page.url()).toContain('/scaleSearch')
 
     // ページの内容が表示されることを確認（特定のh1を選択）
-    await expect(
-      page
-        .locator('h1')
-        .filter({ hasText: 'スケール' })
-        .or(page.locator('h1').first())
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /スケール/ })).toBeVisible()
 
     // ホームに戻る
     await page.goto('/')
     await page.waitForLoadState('networkidle')
 
     // コード検索ページへのナビゲーション（メインコンテンツの最初のリンクをクリック）
-    await page.click('a[href="/chordSearch"]', { force: true })
+    await page.getByTestId('home-chord-link').click()
     await page.waitForURL('**/chordSearch')
     await expect(page.url()).toContain('/chordSearch')
 
     // ページの内容が表示されることを確認（特定のh1を選択）
-    await expect(
-      page
-        .locator('h1')
-        .filter({ hasText: 'コード' })
-        .or(page.locator('h1').first())
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /コード/ })).toBeVisible()
   })
 
   test('レスポンシブデザインが正しく動作する', async ({ page }) => {
@@ -113,8 +103,8 @@ test.describe('基本的な機能テスト', () => {
 
     // コンテンツが表示されることを確認
     await expect(page.locator('h1').first()).toBeVisible()
-    await expect(page.locator('a[href="/scaleSearch"]').first()).toBeVisible()
-    await expect(page.locator('a[href="/chordSearch"]').first()).toBeVisible()
+    await expect(page.getByTestId('home-scale-link')).toBeVisible()
+    await expect(page.getByTestId('home-chord-link')).toBeVisible()
 
     // デスクトップサイズでのテスト
     await page.setViewportSize({ width: 1280, height: 720 })
@@ -123,7 +113,7 @@ test.describe('基本的な機能テスト', () => {
 
     // コンテンツが引き続き表示されることを確認
     await expect(page.locator('h1').first()).toBeVisible()
-    await expect(page.locator('a[href="/scaleSearch"]').first()).toBeVisible()
-    await expect(page.locator('a[href="/chordSearch"]').first()).toBeVisible()
+    await expect(page.getByTestId('home-scale-link')).toBeVisible()
+    await expect(page.getByTestId('home-chord-link')).toBeVisible()
   })
 })

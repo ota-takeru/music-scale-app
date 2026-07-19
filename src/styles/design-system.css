@@ -34,8 +34,8 @@
   --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
   --shadow-base: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1),
-    0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --shadow-piano: 3px 3px 6px 1px #ddd;
   --shadow-key: 1px 2px 7px 1px rgba(0, 0, 0, 0.4);
 
@@ -70,7 +70,7 @@
 /* コンポーネントクラス */
 /* カード系 - globals.cssの定義を拡張 */
 .card-hover {
-  @apply card transition-shadow duration-200 hover:shadow-lg;
+  @apply bg-white rounded-lg shadow-md p-6 border border-gray-200 transition-shadow duration-200 hover:shadow-lg;
 }
 
 /* ボタン系 */
@@ -83,11 +83,17 @@
 /* 特定用途のボタン - globals.cssのbtn-primaryを拡張 */
 
 .btn-secondary {
-  @apply btn-base bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md
+           transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           bg-gray-600 text-white hover:bg-gray-700 focus:ring-gray-500;
 }
 
 .btn-reset {
-  @apply btn-base bg-gray-400 text-white hover:bg-gray-300 hover:border-2 
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium rounded-md
+           transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2
+           disabled:opacity-50 disabled:cursor-not-allowed
+           bg-gray-400 text-white hover:bg-gray-300 hover:border-2
            hover:border-gray-300 focus:ring-gray-500 w-15 h-12 text-xl rounded-lg 
            shadow-md ml-5 max-sm:w-3/5 max-sm:mx-0 max-sm:my-5;
 }
@@ -101,14 +107,26 @@
 }
 
 .selector-dropdown {
-  @apply selector-base min-w-[100px] w-auto h-12 px-8 pr-10 text-2xl
+  @apply appearance-none bg-white border border-gray-300 rounded-md px-3 py-2
+           text-base font-medium shadow-sm transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+           hover:border-gray-400
+           min-w-[100px] w-auto h-12 px-8 pr-10 text-2xl
            bg-[url('../assets/down-arrow-svgrepo-com.svg')] bg-no-repeat 
            bg-[right_10px_center] bg-[length:16px_auto]
            max-sm:w-15 max-sm:text-base;
 }
 
 .selector-scale {
-  @apply selector-dropdown min-w-[12em]
+  @apply appearance-none bg-white border border-gray-300 rounded-md px-3 py-2
+           text-base font-medium shadow-sm transition-colors duration-200
+           focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500
+           hover:border-gray-400
+           min-w-[100px] w-auto h-12 px-8 pr-10 text-2xl
+           bg-[url('../assets/down-arrow-svgrepo-com.svg')] bg-no-repeat
+           bg-[right_10px_center] bg-[length:16px_auto]
+           max-sm:w-15 max-sm:text-base
+           min-w-[12em]
            max-sm:min-w-[11em];
 }
 
@@ -358,7 +376,71 @@
 }
 
 .responsive-container[data-responsive='true'] {
-  @apply max-sm:flex-col-reverse max-sm:items-center;
+  @apply max-sm:flex-col max-sm:items-stretch;
+}
+
+/* 検索ページの導入部。見出し・説明とセレクターを独立した行にする */
+.search-intro-container {
+  @apply flex-col items-stretch gap-4;
+}
+
+.search-intro-copy {
+  @apply w-full;
+}
+
+.search-intro-copy h1 {
+  @apply m-0 text-2xl font-semibold text-gray-700;
+}
+
+.search-intro-copy p {
+  @apply m-0 mt-2 max-w-4xl text-base leading-relaxed text-gray-700;
+}
+
+.search-controls {
+  @apply flex w-full flex-wrap items-center gap-3;
+}
+
+.search-controls > div {
+  margin-right: 0;
+}
+
+/* 結果リストと楽器表示はデスクトップでは横並び、モバイルでは読み順に積む */
+.search-results-container {
+  @apply items-start gap-5;
+}
+
+.search-results-container > * {
+  @apply min-w-0;
+}
+
+.search-results-container .display-container {
+  @apply m-0 w-full;
+}
+
+.search-results-container .instrument-display {
+  @apply w-full min-w-0;
+}
+
+@media (min-width: 641px) {
+  .search-results-container {
+    display: grid;
+    grid-template-columns: minmax(0, 20rem) minmax(0, 1fr);
+    justify-content: stretch;
+  }
+}
+
+@media (max-width: 640px) {
+  .search-intro-container {
+    @apply gap-3;
+  }
+
+  .search-controls {
+    @apply gap-3;
+  }
+
+  .search-results-container {
+    @apply flex-col items-stretch gap-4;
+  }
 }
 
 @media screen and (width: 600px) {

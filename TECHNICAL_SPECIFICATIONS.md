@@ -2,7 +2,7 @@
 
 ## 概要
 
-音楽のスケールとコードを検索・表示する Next.js アプリケーション。静的サイト生成（SSG）による SEO 最適化と、個別 URL でのアクセスが可能。多言語対応により、グローバルなユーザーに向けた音楽理論学習ツール。
+音楽のスケールとコードを検索・表示する Next.js アプリケーション。詳細ページは静的サイト生成（SSG）と ISR による SEO 最適化を基本とし、初期表示に必要な音楽データは Server Component 側で取得してからクライアント UI に渡す。多言語対応により、グローバルなユーザーに向けた音楽理論学習ツール。
 
 ## 重要な技術仕様
 
@@ -145,10 +145,10 @@ const translateChord = (chordKey, language = 'en') => {
 
 #### 静的生成される URL（英語統一）
 
-- **スケール**: `/scale/[key]-[englishScaleName]`
-  - 例: `/scale/C-major`, `/scale/A-harmonicMinor`
-- **コード**: `/chord/[root]-[type]`
-  - 例: `/chord/C-major`, `/chord/A-minor`
+- **スケール**: `/scaleSearch/[key]-[englishScaleName]`
+  - 例: `/scaleSearch/C-major`, `/scaleSearch/A-harmonicMinor`
+- **コード**: `/chordSearch/[root]-[type]`
+  - 例: `/chordSearch/C-major`, `/chordSearch/A-minor`
 
 #### URL 生成プロセス
 
@@ -158,7 +158,7 @@ export async function generateStaticParams() {
   const combinations = await fetchAllScaleCombinations()
 
   return combinations.map(({ key, scale }) => ({
-    id: `${encodeURIComponent(key)}-${encodeURIComponent(scale)}`,
+    id: buildMusicParamId(key, normalizeScaleValue(scale)),
     // 全て英語形式: 'C-major', 'F#-harmonicMinor' など
   }))
 }
@@ -170,9 +170,9 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const [encodedKey, encodedScale] = params.id.split('-')
-  const key = decodeURIComponent(encodedKey)
-  const scale = decodeURIComponent(encodedScale)
+  const { id } = await params
+  const [key, scaleRaw] = parseMusicRouteId(id)
+  const scale = normalizeScaleValue(scaleRaw)
 
   // 言語に応じたメタデータ生成
   const language = getServerLanguage() // サーバーサイドでの言語検出
@@ -384,7 +384,7 @@ export default function SearchBase({ urlArray }) {
     (scaleKey) => ({
       value: scaleKey, // API用の英語キー
       label: t(`scales.${scaleKey}`), // 表示用の翻訳済みテキスト
-    })
+    }),
   )
 
   return (
@@ -442,13 +442,16 @@ CREATE TABLE chords (
 );
 ```
 
-### 7. 静的サイト生成（SSG）
+### 7. 静的サイト生成（SSG）+ ISR
 
 #### generateStaticParams
 
 - `fetchAllScaleCombinations()`: 全スケール組み合わせを取得
 - `fetchAllChordCombinations()`: 全コード組み合わせを取得
 - 両方の値をエンコードして安全な URL 生成
+- 詳細ページでは `revalidate = 86400` を設定し、1 日単位で ISR 更新
+- `dynamicParams = true` を維持し、ビルド後に追加された DB データも初回アクセス時に生成可能
+- 詳細ページの初期データは Server Component 側で `fetchKey()` / `fetchChordsWithName()` を実行して取得し、`SearchBase` に `initialData` として渡す
 
 #### メタデータ生成
 
@@ -456,9 +459,9 @@ CREATE TABLE chords (
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const [encodedKey, encodedScale] = params.id.split('-')
-  const key = decodeURIComponent(encodedKey)
-  const scale = decodeURIComponent(encodedScale)
+  const { id } = await params
+  const [key, scaleRaw] = parseMusicRouteId(id)
+  const scale = normalizeScaleValue(scaleRaw)
 
   return {
     title: `${key} ${scale} Scale - Music Scale App`,
@@ -467,7 +470,13 @@ export async function generateMetadata({
 }
 ```
 
-### 8. クライアントサイドコンポーネント
+### 8. Server Components とクライアントコンポーネント
+
+#### Server Component 側の責務
+
+- `app/scaleSearch/[id]/page.tsx`: SSG/ISR、メタデータ生成、初期スケールデータ取得
+- `app/chordSearch/[id]/page.tsx`: SSG/ISR、メタデータ生成、初期コードデータ取得
+- `app/page.tsx`, `app/scaleSearch/page.tsx`, `app/chordSearch/page.tsx`: ページ metadata の定義
 
 #### 'use client' ディレクティブが必要
 
@@ -475,16 +484,17 @@ export async function generateMetadata({
 - `displayScaleAndKey.tsx`: useState, useCallback 使用
 - `InstrumentDisplay`: 楽器表示の動的インタラクション
 
-#### サーバーサイドレンダリング
+#### 詳細ページのレンダリング方針
 
-- 個別ページのメタデータ生成
-- 静的 HTML 生成による SEO 最適化
+- 基本は SSG/ISR による静的 HTML 生成
+- 初回 HTML には DB から取得した詳細データを反映
+- クライアント側 fetch はユーザーが選択を変更した場合のみ実行
 
 ### 9. 開発時の注意点（多言語対応）
 
 #### デバッグ方法
 
-- **言語状態の追跡**: `useTranslation` フックでの現在言語確認
+- **言語状態の追跡**: `useLocale` フックでの現在言語確認
 - **翻訳キーの検証**: 翻訳データの存在確認とフォールバック動作
 - **API データ形式**: 常に英語形式でのレスポンス確認
 - **静的生成ログ**: 多言語パス生成の確認
@@ -544,18 +554,10 @@ NEXT_PUBLIC_SUPPORTED_LANGUAGES=en,ja
 // next.config.js
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
+  images: {
+    formats: ['image/webp', 'image/avif'],
   },
-  // 多言語ルーティング設定
-  i18n: {
-    locales: ['en', 'ja'],
-    defaultLocale: 'en',
-    localeDetection: false, // カスタム言語検出を使用
-  },
-  // 静的最適化
-  output: 'export',
-  trailingSlash: true,
+  output: 'standalone',
 }
 
 module.exports = nextConfig
@@ -609,10 +611,10 @@ npm run lint      # 翻訳キー整合性チェック含む
    - サーバーサイドでの翻訳処理実装
    - 代替言語 URL の設定確認
 
-4. **静的生成で多言語ページが作成されない**
+4. **静的生成ページが作成されない**
 
-   - `generateStaticParams` での言語パラメータ確認
-   - 国際化ルーティング設定の確認
+   - `generateStaticParams` で返す ID が未エンコードの `key-scale` / `root-type` 形式になっているか確認
+   - `buildMusicRouteId()` はリンク生成用、`buildMusicParamId()` は静的パラメータ生成用として使い分ける
    - ビルドログでの生成ページ数確認
 
 5. **ブラウザ言語が正しく検出されない**

@@ -1,12 +1,6 @@
 import supabase from '../utils/supabase'
 import { withErrorHandling } from '../utils/apiHelpers'
-import type {
-  ScaleData,
-  ChordData,
-  ApiResult,
-  MusicNote,
-  ApiResponse,
-} from '../types'
+import type { ScaleData, ChordData, MusicNote, ApiResponse } from '../types'
 import type { Database } from '../types/database'
 
 // 型エイリアス
@@ -18,7 +12,7 @@ type ChordRow = Database['public']['Tables']['chords']['Row']
  */
 export async function fetchKey(
   key: string,
-  scale: string
+  scale: string,
 ): Promise<ApiResponse<ScaleData[]>> {
   return withErrorHandling(async () => {
     if (!key || !scale) {
@@ -43,19 +37,22 @@ export async function fetchKey(
  * 音符データでスケールを検索
  */
 export async function fetchKeyWithNote(
-  prevArray: MusicNote
+  prevArray: MusicNote,
 ): Promise<ApiResponse<ScaleData[] | undefined>> {
   return withErrorHandling(async () => {
     if (!prevArray) {
       throw new Error('Music note array is required')
     }
 
-    const array = { ...prevArray }
+    const array: Record<string, boolean> = { ...prevArray }
     const keys = Object.keys(array)
     const lastTwoKeys = keys.splice(0, 2)
 
-    const deleteKeys = (array: any, keys: string[]) => {
-      const newArray = { ...array }
+    const deleteKeys = (
+      noteValues: Record<string, boolean>,
+      keys: string[],
+    ) => {
+      const newArray = { ...noteValues }
       keys.forEach((key) => {
         delete newArray[key]
       })
@@ -92,7 +89,7 @@ export async function fetchKeyWithNote(
  */
 export async function fetchChordsWithName(
   key: string,
-  type: string
+  type: string,
 ): Promise<ApiResponse<ChordData[]>> {
   return withErrorHandling(async () => {
     if (!key || !type) {
@@ -117,7 +114,7 @@ export async function fetchChordsWithName(
  * 音符配列でコードを検索
  */
 export async function fetchChords(
-  array: string[]
+  array: string[],
 ): Promise<ApiResponse<ChordData[]>> {
   return withErrorHandling(async () => {
     if (!array || array.length === 0) {
@@ -146,19 +143,22 @@ export async function fetchChords(
  * 音符データでコードを検索
  */
 export async function fetchChordsWithNote(
-  prevArray: MusicNote
+  prevArray: MusicNote,
 ): Promise<ApiResponse<ChordData[] | undefined>> {
   return withErrorHandling(async () => {
     if (!prevArray) {
       throw new Error('Music note array is required')
     }
 
-    const array = { ...prevArray }
+    const array: Record<string, boolean> = { ...prevArray }
     const keys = Object.keys(array)
     const lastTwoKeys = keys.splice(0, 2)
 
-    const deleteKeys = (array: any, keys: string[]) => {
-      const newArray = { ...array }
+    const deleteKeys = (
+      noteValues: Record<string, boolean>,
+      keys: string[],
+    ) => {
+      const newArray = { ...noteValues }
       keys.forEach((key) => {
         delete newArray[key]
       })
@@ -192,49 +192,7 @@ export async function fetchChordsWithNote(
 }
 
 /**
- * 従来のAPI互換性のための関数（戻り値を直接データにする）
- * 新しいコードでは上記の関数を使用することを推奨
- */
-
-export const fetchKeyLegacy = async (
-  key: string,
-  scale: string
-): Promise<ScaleData[]> => {
-  const response = await fetchKey(key, scale)
-  return response.data || []
-}
-
-export const fetchKeyWithNoteLegacy = async (
-  prevArray: MusicNote
-): Promise<ScaleData[] | undefined> => {
-  const response = await fetchKeyWithNote(prevArray)
-  return response.data || undefined
-}
-
-export const fetchChordsWithNameLegacy = async (
-  key: string,
-  type: string
-): Promise<ChordData[]> => {
-  const response = await fetchChordsWithName(key, type)
-  return response.data || []
-}
-
-export const fetchChordsLegacy = async (
-  array: string[]
-): Promise<ChordData[]> => {
-  const response = await fetchChords(array)
-  return response.data || []
-}
-
-export const fetchChordsWithNoteLegacy = async (
-  prevArray: MusicNote
-): Promise<ChordData[] | undefined> => {
-  const response = await fetchChordsWithNote(prevArray)
-  return response.data || undefined
-}
-
-/**
- * 静的ページ生成用：全スケール組み合わせを取得
+ * SSG/ISR用：全スケール組み合わせを取得
  */
 export async function fetchAllScaleCombinations(): Promise<
   ApiResponse<{ key: string; scale: string }[]>
@@ -250,17 +208,17 @@ export async function fetchAllScaleCombinations(): Promise<
       throw error
     }
 
-    return (
-      data?.map((item: any) => ({
-        key: item.key,
-        scale: item.scale,
-      })) || []
-    )
+    const combinations = (data as Pick<KeyRow, 'key' | 'scale'>[] | null) || []
+
+    return combinations.map((item) => ({
+      key: item.key,
+      scale: item.scale,
+    }))
   }, 'fetchAllScaleCombinations')
 }
 
 /**
- * 静的ページ生成用：全コード組み合わせを取得
+ * SSG/ISR用：全コード組み合わせを取得
  */
 export async function fetchAllChordCombinations(): Promise<
   ApiResponse<{ root: string; type: string }[]>
@@ -276,11 +234,12 @@ export async function fetchAllChordCombinations(): Promise<
       throw error
     }
 
-    return (
-      data?.map((item: any) => ({
-        root: item.root,
-        type: item.type,
-      })) || []
-    )
+    const combinations =
+      (data as Pick<ChordRow, 'root' | 'type'>[] | null) || []
+
+    return combinations.map((item) => ({
+      root: item.root,
+      type: item.type,
+    }))
   }, 'fetchAllChordCombinations')
 }

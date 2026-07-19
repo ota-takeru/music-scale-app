@@ -59,18 +59,10 @@ export const useMusicData = ({
 
   // 型安全なアクセサー
   const scaleData = useMemo((): ScaleData | null => {
-    console.log('🔍 useMusicData - musicData:', musicData)
-    console.log('🔍 isScaleData結果:', isScaleData(musicData))
-    if (musicData) {
-      console.log('🔍 musicDataのキー:', Object.keys(musicData))
-      console.log('🔍 keyプロパティ:', 'key' in musicData)
-      console.log('🔍 scaleプロパティ:', 'scale' in musicData)
-    }
     return isScaleData(musicData) ? musicData : null
   }, [musicData])
 
   const chordData = useMemo((): ChordData | null => {
-    console.log('🔍 useMusicData - chordData判定:', isChordData(musicData))
     return isChordData(musicData) ? musicData : null
   }, [musicData])
 

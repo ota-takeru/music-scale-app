@@ -34,7 +34,7 @@ const ChordSelector: React.FC<ChordSelectorProps> = React.memo(
         { value: 'aug', label: 'aug' },
         { value: 'sus4', label: 'sus4' },
       ],
-      []
+      [],
     )
 
     const [chord, setChord] = useState<string>(selectedChord)
@@ -46,7 +46,7 @@ const ChordSelector: React.FC<ChordSelectorProps> = React.memo(
         setChord(newChord)
         setSelectedChord(newChord)
       },
-      [setSelectedChord]
+      [setSelectedChord],
     )
 
     useEffect(() => {
@@ -66,7 +66,7 @@ const ChordSelector: React.FC<ChordSelectorProps> = React.memo(
             {option.label}
           </option>
         )),
-      [options]
+      [options],
     )
 
     return (
@@ -76,6 +76,7 @@ const ChordSelector: React.FC<ChordSelectorProps> = React.memo(
           className="selector-scale"
           value={chord}
           aria-label="コードを選択"
+          data-testid="chord-selector"
         >
           <option value="" hidden>
             {placeholderText}
@@ -84,7 +85,7 @@ const ChordSelector: React.FC<ChordSelectorProps> = React.memo(
         </select>
       </div>
     )
-  }
+  },
 )
 
 ChordSelector.displayName = 'ChordSelector'

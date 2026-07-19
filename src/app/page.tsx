@@ -1,10 +1,16 @@
-'use client'
-import React from 'react'
+import Link from 'next/link'
 import Container from '../components/container'
-import { useLocale } from '../hooks/useLocale'
+import type { Metadata } from 'next'
+import ja from '../locales/ja'
+
+export const metadata: Metadata = {
+  title: 'Music Scale App',
+  description: ja.DESCRIPTIONS_HOME,
+  keywords: ja.KEYWORDS,
+}
 
 export default function Home() {
-  const { t } = useLocale()
+  const t = ja
 
   return (
     <Container>
@@ -19,8 +25,9 @@ export default function Home() {
             gap: '1rem',
           }}
         >
-          <a
+          <Link
             href="/scaleSearch"
+            data-testid="home-scale-link"
             style={{
               padding: '1rem 2rem',
               backgroundColor: '#007bff',
@@ -30,9 +37,10 @@ export default function Home() {
             }}
           >
             {t.SCALE_TITLE}
-          </a>
-          <a
+          </Link>
+          <Link
             href="/chordSearch"
+            data-testid="home-chord-link"
             style={{
               padding: '1rem 2rem',
               backgroundColor: '#28a745',
@@ -42,7 +50,7 @@ export default function Home() {
             }}
           >
             {t.CHORD_TITLE}
-          </a>
+          </Link>
         </div>
       </div>
     </Container>

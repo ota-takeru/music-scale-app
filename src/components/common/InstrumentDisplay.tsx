@@ -30,7 +30,7 @@ const InstrumentDisplay: React.FC<InstrumentDisplayProps> = (props) => {
       musicData,
       setMusicData,
     }),
-    [musicData, setMusicData]
+    [musicData, setMusicData],
   )
 
   const fingerboardProps = useMemo(
@@ -38,20 +38,26 @@ const InstrumentDisplay: React.FC<InstrumentDisplayProps> = (props) => {
       finaldata: musicData || undefined,
       setFinaldata: setMusicData,
     }),
-    [musicData, setMusicData]
+    [musicData, setMusicData],
   )
 
   // データがない場合の表示
   if (!musicData) {
     return (
-      <div className={`w-full text-center p-8 text-gray-500 ${className}`}>
+      <div
+        className={`instrument-display w-full text-center p-8 text-gray-500 ${className}`}
+        data-testid="instrument-display"
+      >
         楽器データが読み込まれていません
       </div>
     )
   }
 
   return (
-    <div className={`w-full ${className}`}>
+    <div
+      className={`instrument-display w-full ${className}`}
+      data-testid="instrument-display"
+    >
       {/* トグルボタン */}
       <div
         className="flex justify-center items-center cursor-pointer p-4 bg-gray-100 hover:bg-gray-200 transition-colors rounded-lg mb-4"

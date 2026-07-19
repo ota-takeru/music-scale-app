@@ -1,15 +1,26 @@
 import React from 'react'
 import ScaleSearch from '../../../components/base'
 import type { Metadata } from 'next'
-import { fetchAllScaleCombinations } from '../../../api'
+import { notFound } from 'next/navigation'
+import { fetchAllScaleCombinations, fetchKey } from '../../../api'
+import {
+  buildMusicParamId,
+  buildMusicRouteId,
+  getScaleDisplayName,
+  normalizeScaleValue,
+  parseMusicRouteId,
+} from '../../../utils/musicRoutes'
+
+export const revalidate = 86400
+export const dynamicParams = true
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
-// 静的ページ生成のためのパラメータ生成
+// DBの組み合わせを事前生成し、以後はISRでゆるく更新する
 export async function generateStaticParams() {
   try {
     const response = await fetchAllScaleCombinations()
@@ -20,9 +31,10 @@ export async function generateStaticParams() {
     }
 
     return response.data.map((combination) => ({
-      id: `${encodeURIComponent(combination.key)}-${encodeURIComponent(
-        combination.scale
-      )}`,
+      id: buildMusicParamId(
+        combination.key,
+        normalizeScaleValue(combination.scale),
+      ),
     }))
   } catch (error) {
     console.error('Error generating static params for scales:', error)
@@ -33,34 +45,10 @@ export async function generateStaticParams() {
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const [encodedKey, encodedScale] = params.id.split('-')
-  const key = decodeURIComponent(encodedKey)
-  const scaleRaw = decodeURIComponent(encodedScale)
-
-  // 英語のスケール名を日本語に変換してタイトル用に使用
-  const scaleJapaneseToEnglish: Record<string, string> = {
-    メジャー: 'major',
-    マイナー: 'minor',
-    ハーモニックマイナー: 'harmonic minor',
-    メロディックマイナー: 'melodic minor',
-    メジャーペンタトニック: 'major pentatonic',
-    マイナーペンタトニック: 'minor pentatonic',
-  }
-
-  const scaleEnglishToDisplay: Record<string, string> = {
-    major: 'Major',
-    minor: 'Minor',
-    harmonicMinor: 'Harmonic Minor',
-    melodicMinor: 'Melodic Minor',
-    majorPentatonic: 'Major Pentatonic',
-    minorPentatonic: 'Minor Pentatonic',
-  }
-
-  // 適切な表示名を取得
-  const scaleDisplayName =
-    scaleEnglishToDisplay[scaleRaw] ||
-    scaleJapaneseToEnglish[scaleRaw] ||
-    scaleRaw
+  const { id } = await params
+  const [key, scaleRaw] = parseMusicRouteId(id)
+  const scale = normalizeScaleValue(scaleRaw)
+  const scaleDisplayName = getScaleDisplayName(scale)
 
   return {
     title: `${key} ${scaleDisplayName} Scale - Music Scale App`,
@@ -71,18 +59,22 @@ export async function generateMetadata({
       description: `Interactive ${key} ${scaleDisplayName} scale with piano and guitar visualization`,
       type: 'website',
     },
+    alternates: {
+      canonical: `/scaleSearch/${buildMusicRouteId(key, scale)}`,
+    },
   }
 }
 
-export default function ScaleDetailPage({ params }: PageProps) {
-  const [encodedKey, encodedScale] = params.id.split('-')
-  const key = decodeURIComponent(encodedKey)
-  const scale = decodeURIComponent(encodedScale)
+export default async function ScaleDetailPage({ params }: PageProps) {
+  const { id } = await params
+  const [key, scaleRaw] = parseMusicRouteId(id)
+  const scale = normalizeScaleValue(scaleRaw)
   const urlArray = [key, scale]
+  const response = await fetchKey(key, scale)
 
-  // デバッグログ
-  console.log('ScaleDetailPage params:', params)
-  console.log('Generated urlArray:', urlArray)
+  if (!response.success || !response.data?.[0]) {
+    notFound()
+  }
 
-  return <ScaleSearch urlArray={urlArray} />
+  return <ScaleSearch urlArray={urlArray} initialData={response.data[0]} />
 }

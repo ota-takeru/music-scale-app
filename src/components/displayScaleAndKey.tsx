@@ -54,10 +54,6 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
             config.mode === 'scale'
               ? { key: first, scale: second }
               : { root: first, type: second }
-          console.log(
-            `Direct ${config.mode} display from urlArray:`,
-            directResult
-          )
           setDisplayResult([directResult])
           setIsLoading(false)
           return
@@ -107,7 +103,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
           setDisplayResult(newResults)
         }
       },
-      [urlArray, setIsLoading]
+      [urlArray, setIsLoading],
     )
 
     // スケール検索の設定
@@ -120,7 +116,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
         getDirectResult: () => ({ key: array!.key, scale: array!.scale }),
         mapResult: (item: any) => ({ key: item.key, scale: item.scale }),
       }),
-      [array]
+      [array],
     )
 
     // コード検索の設定
@@ -136,7 +132,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
         }),
         mapResult: (item: any) => ({ root: item.root, type: item.type }),
       }),
-      [arrayChord]
+      [arrayChord],
     )
 
     useEffect(() => {
@@ -199,7 +195,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
             return (
               <Link
                 href={`/scaleSearch/${encodeURIComponent(
-                  elm.key + '-' + elm.scale
+                  elm.key + '-' + elm.scale,
                 )}`}
                 className="text-gray-700 no-underline"
                 key={elm.key + elm.scale}
@@ -213,7 +209,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
             return (
               <Link
                 href={`/chordSearch/${encodeURIComponent(
-                  elm.root + '-' + elm.type
+                  elm.root + '-' + elm.type,
                 )}`}
                 className="text-gray-700 no-underline"
                 key={elm.root + elm.type}
@@ -239,7 +235,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
           </div>
         </div>
       ),
-      []
+      [],
     )
 
     // shouldShowNoResultsのメモ化 - 早期return文の前に配置
@@ -279,8 +275,21 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
       return loadingComponent
     }
 
+    const resultTestId = array
+      ? 'scale-result'
+      : arrayChord
+        ? 'chord-result'
+        : undefined
+    const resultClassName = [
+      'display-container',
+      array ? 'scale-display' : '',
+      arrayChord ? 'chord-display' : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
+
     return (
-      <div className="display-container">
+      <div className={resultClassName} data-testid={resultTestId}>
         <div className="display-sub-container">
           {list.length > 0 ? (
             list
@@ -290,7 +299,7 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
         </div>
       </div>
     )
-  }
+  },
 )
 
 DisplayScaleAndKey.displayName = 'DisplayScaleAndKey'

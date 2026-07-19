@@ -16,18 +16,7 @@ export interface MusicNote {
 
 // 音符名の型定義
 export type NoteName =
-  | 'A'
-  | 'A#'
-  | 'B'
-  | 'C'
-  | 'C#'
-  | 'D'
-  | 'D#'
-  | 'E'
-  | 'F'
-  | 'F#'
-  | 'G'
-  | 'G#'
+  'A' | 'A#' | 'B' | 'C' | 'C#' | 'D' | 'D#' | 'E' | 'F' | 'F#' | 'G' | 'G#'
 export type NoteNameLower =
   | 'a'
   | 'a_sharp'
@@ -146,6 +135,7 @@ export interface LocaleTexts {
 // 共通のコンポーネントプロパティの型定義
 export interface BaseComponentProps {
   urlArray: string[]
+  initialData?: MusicData | null
 }
 
 // 統一的な音楽データコンポーネントプロパティ
@@ -170,7 +160,7 @@ export interface FingerboardProps {
     data:
       | ScaleData
       | ChordData
-      | ((prev: ScaleData | ChordData) => ScaleData | ChordData)
+      | ((prev: ScaleData | ChordData) => ScaleData | ChordData),
   ) => void
 }
 
@@ -178,13 +168,6 @@ export interface FingerboardProps {
 export interface HeaderProps {
   href?: string
   title?: string
-}
-
-// Headコンポーネント用のプロパティ
-export interface HeadProps {
-  title: string
-  descriptions?: string
-  keywords?: string
 }
 
 // ピアノキーの統一的な型定義
@@ -245,7 +228,7 @@ export interface FretProps {
     data:
       | ScaleData
       | ChordData
-      | ((prev: ScaleData | ChordData) => ScaleData | ChordData)
+      | ((prev: ScaleData | ChordData) => ScaleData | ChordData),
   ) => void
   label: string
   className?: string

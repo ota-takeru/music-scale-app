@@ -21,10 +21,10 @@ const setupErrorHandling = (page: Page) => {
         } catch {
           return '[unserializable]'
         }
-      })
+      }),
     )
     console.log(
-      `[console][${msg.type()}] ${msg.text()}  ↩︎  ${JSON.stringify(args)}`
+      `[console][${msg.type()}] ${msg.text()}  ↩︎  ${JSON.stringify(args)}`,
     )
   })
 
@@ -38,7 +38,7 @@ const setupErrorHandling = (page: Page) => {
       '[requestfailed]',
       req.method(),
       req.url(),
-      failure?.errorText ?? ''
+      failure?.errorText ?? '',
     )
   })
 }
@@ -51,22 +51,13 @@ test.describe('スケール検索機能', () => {
 
     // ページタイトルと見出しを確認
     await page.waitForLoadState('networkidle')
-    await expect(
-      page
-        .locator('h1')
-        .filter({ hasText: 'スケール' })
-        .or(page.locator('h1').first())
-    ).toBeVisible()
+    await expect(page.getByRole('heading', { name: /スケール/ })).toBeVisible()
 
     // キーセレクターが表示されることを確認
-    await expect(
-      page.locator('[data-testid="key-selector"], select, .key-selector')
-    ).toBeVisible()
+    await expect(page.getByTestId('key-selector')).toBeVisible()
 
     // スケールセレクターが表示されることを確認
-    await expect(
-      page.locator('[data-testid="scale-selector"], select, .scale-selector')
-    ).toBeVisible()
+    await expect(page.getByTestId('scale-selector')).toBeVisible()
   })
 
   test('キーとスケールを選択してスケール検索が実行される', async ({ page }) => {
