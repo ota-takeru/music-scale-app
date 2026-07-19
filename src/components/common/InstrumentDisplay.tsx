@@ -1,7 +1,5 @@
 'use client'
-import React, { useState, lazy, Suspense, useMemo } from 'react'
-import { IconContext } from 'react-icons'
-import { RxDoubleArrowUp } from 'react-icons/rx'
+import React, { lazy, Suspense, useMemo } from 'react'
 import type { InstrumentDisplayProps } from '../../types'
 
 // 動的インポートでコード分割
@@ -18,11 +16,6 @@ const LoadingSpinner: React.FC<{ children: string }> = ({ children }) => (
 
 const InstrumentDisplay: React.FC<InstrumentDisplayProps> = (props) => {
   const { musicData, setMusicData, className = '' } = props
-  const [isDisplay, setIsDisplay] = useState(false)
-
-  const handleClick = () => {
-    setIsDisplay(!isDisplay)
-  }
 
   // プロップスをメモ化
   const pianoProps = useMemo(
@@ -58,45 +51,24 @@ const InstrumentDisplay: React.FC<InstrumentDisplayProps> = (props) => {
       className={`instrument-display w-full ${className}`}
       data-testid="instrument-display"
     >
-      {/* トグルボタン */}
-      <div
-        className="flex justify-center items-center cursor-pointer p-4 bg-gray-100 hover:bg-gray-200 transition-colors rounded-lg mb-4"
-        onClick={handleClick}
-      >
-        <IconContext.Provider value={{ size: '1.5em', color: '#333' }}>
-          <div
-            className={`transform transition-transform duration-300 ${
-              isDisplay ? 'rotate-180' : ''
-            }`}
-          >
-            <RxDoubleArrowUp />
-          </div>
-        </IconContext.Provider>
-        <span className="ml-2 text-lg font-medium">
-          {isDisplay ? '楽器を隠す' : '楽器を表示'}
-        </span>
-      </div>
-
       {/* 楽器表示エリア */}
-      {isDisplay && (
-        <div className="space-y-6">
-          {/* ピアノロール */}
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h3 className="text-lg font-semibold mb-4 text-center">ピアノ</h3>
-            <Suspense fallback={<LoadingSpinner>ピアノ</LoadingSpinner>}>
-              <PianoRoll {...pianoProps} />
-            </Suspense>
-          </div>
-
-          {/* ギターフィンガーボード */}
-          <div className="bg-white rounded-lg shadow-md p-4">
-            <h3 className="text-lg font-semibold mb-4 text-center">ギター</h3>
-            <Suspense fallback={<LoadingSpinner>ギター</LoadingSpinner>}>
-              <Fingerboard {...fingerboardProps} />
-            </Suspense>
-          </div>
+      <div className="space-y-6">
+        {/* ピアノロール */}
+        <div className="bg-white rounded-lg shadow-md p-4">
+          <h3 className="text-lg font-semibold mb-4 text-center">ピアノ</h3>
+          <Suspense fallback={<LoadingSpinner>ピアノ</LoadingSpinner>}>
+            <PianoRoll {...pianoProps} />
+          </Suspense>
         </div>
-      )}
+
+        {/* ギターフィンガーボード */}
+        <div className="bg-white rounded-lg shadow-md p-4">
+          <h3 className="text-lg font-semibold mb-4 text-center">ギター</h3>
+          <Suspense fallback={<LoadingSpinner>ギター</LoadingSpinner>}>
+            <Fingerboard {...fingerboardProps} />
+          </Suspense>
+        </div>
+      </div>
     </div>
   )
 }

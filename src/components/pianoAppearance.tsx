@@ -1,5 +1,5 @@
 // CSS modules removed - using unified Tailwind design system
-import { useEffect, useState, useCallback, useMemo } from 'react'
+import { useEffect, useCallback, useMemo } from 'react'
 import WhiteKey from './whiteKey'
 import BlackKey from './blackKey'
 import React from 'react'
@@ -47,7 +47,10 @@ const PianoAppearance: React.FC<PianoAppearanceProps> = React.memo((props) => {
           ? 'true'
           : 'false'
       )
-      setPrimaryKey(newPrimaryKey)
+
+      if (newPrimaryKey.some((value, index) => value !== primaryKey[index])) {
+        setPrimaryKey(newPrimaryKey)
+      }
     }
   }, [currentKey, setPrimaryKey, primaryKey, keyList])
 
