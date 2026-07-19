@@ -1,13 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
-   compiler: {
-   styledComponents: true,
- }, 
- i18n: {
-  locales: ['en', 'ja'],
-  defaultLocale: 'ja',
-},
+  images: {
+    formats: ['image/webp', 'image/avif'],
+  },
+  output: 'standalone',
 }
-module.exports = nextConfig
 
+module.exports = nextConfig
