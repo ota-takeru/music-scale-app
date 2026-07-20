@@ -10,6 +10,12 @@
       -apple-system,
       sans-serif;
     line-height: 1.6;
+    margin: 0;
+    background: var(--surface-page);
+    color: var(--text-primary);
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
   }
 
   h1,

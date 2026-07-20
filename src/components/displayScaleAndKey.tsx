@@ -185,6 +185,20 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
       }
     }, [array, arrayChord, fetchSearchData, scaleConfig, chordConfig])
 
+    const resultTestId = array
+      ? 'scale-result'
+      : arrayChord
+        ? 'chord-result'
+        : undefined
+    const resultClassName = [
+      'display-container',
+      'search-panel',
+      array ? 'scale-display' : '',
+      arrayChord ? 'chord-display' : '',
+    ]
+      .filter(Boolean)
+      .join(' ')
+
     // リンクリストをメモ化
     const list = useMemo(() => {
       return displayResult
@@ -226,18 +240,6 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
         .filter(Boolean)
     }, [displayResult, array, arrayChord, convertScale, t.SELECTED_SCALE])
 
-    // ローディングコンポーネントをメモ化
-    const loadingComponent = useMemo(
-      () => (
-        <div className="display-container">
-          <div className="display-sub-container">
-            <LoadingSpinner message="検索中..." />
-          </div>
-        </div>
-      ),
-      [],
-    )
-
     // shouldShowNoResultsのメモ化 - 早期return文の前に配置
     const shouldShowNoResults = useMemo(() => {
       // URLArrayから直接表示している場合は「結果なし」を表示しない
@@ -261,43 +263,29 @@ const DisplayScaleAndKey: React.FC<DisplayScaleAndKeyProps> = React.memo(
       return hasActiveNotes() && list.length === 0
     }, [urlArray, array, arrayChord, list])
 
-    if (error) {
-      return (
-        <div className="display-container">
-          <div className="display-sub-container">
-            <ApiErrorDisplay error={error} onRetry={handleRetry} />
-          </div>
+    const renderPanel = (content: React.ReactNode) => (
+      <div className={resultClassName} data-testid={resultTestId}>
+        <div className="search-panel-header">
+          <h2>{t.RESULT}</h2>
         </div>
-      )
+        <div className="display-sub-container search-panel-body">{content}</div>
+      </div>
+    )
+
+    if (error) {
+      return renderPanel(<ApiErrorDisplay error={error} onRetry={handleRetry} />)
     }
 
     if (isLoading) {
-      return loadingComponent
+      return renderPanel(<LoadingSpinner message={t.SEARCHING} />)
     }
 
-    const resultTestId = array
-      ? 'scale-result'
-      : arrayChord
-        ? 'chord-result'
-        : undefined
-    const resultClassName = [
-      'display-container',
-      array ? 'scale-display' : '',
-      arrayChord ? 'chord-display' : '',
-    ]
-      .filter(Boolean)
-      .join(' ')
-
-    return (
-      <div className={resultClassName} data-testid={resultTestId}>
-        <div className="display-sub-container">
-          {list.length > 0 ? (
-            list
-          ) : shouldShowNoResults ? (
-            <p>結果が見つかりませんでした</p>
-          ) : null}
-        </div>
-      </div>
+    return renderPanel(
+      list.length > 0 ? (
+        list
+      ) : shouldShowNoResults ? (
+        <p>{t.NO_RESULTS}</p>
+      ) : null,
     )
   },
 )

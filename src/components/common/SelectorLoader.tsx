@@ -1,5 +1,7 @@
+'use client'
 import React, { lazy, Suspense } from 'react'
 import LoadingSpinner from './LoadingSpinner'
+import { useLocale } from '../../hooks/useLocale'
 
 // セレクターコンポーネントの動的インポート
 const KeySelector = lazy(() => import('../keySelector'))
@@ -31,10 +33,11 @@ type SelectorLoaderProps =
   | ChordSelectorLoaderProps
 
 const SelectorLoader: React.FC<SelectorLoaderProps> = (props) => {
+  const { t } = useLocale()
   return (
     <Suspense
       fallback={
-        <LoadingSpinner size="sm" message="セレクターを読み込み中..." />
+        <LoadingSpinner size="sm" message={`${t.LOADING}`} />
       }
     >
       {props.type === 'key' && (

@@ -17,8 +17,7 @@ const en: LocaleTexts = {
   MAJOR_PENTATONIC: 'Major Pentatonic',
   MINOR_PENTATONIC: 'Minor Pentatonic',
   BLUES: 'Blues',
-  DESCRIPTION_SCALE:
-    'You can search for scales by both name and constituent notes. The interactive design allows you to visually understand the constituent notes of scales that form the basis of melodies and harmonies.',
+  DESCRIPTION_SCALE: 'Search by scale name or notes.',
   DESCRIPTION_CHORD:
     'You can search for chords by both name and constituent notes. The interactive design allows you to visually understand the constituent notes of chords that add color to rhythms and melodies.',
   KEYWORDS: 'Scale,Search,Piano,Guitar,Music,Scale,Minor,Major',
@@ -27,6 +26,23 @@ const en: LocaleTexts = {
   THREE_CHORDS: 'Three Chords',
   FOUR_CHORDS: 'Four Chords',
   OTHERS: 'Others',
+  TITLE: 'MUSIC-TOOL',
+  INSTRUMENT: 'Instruments',
+  PIANO: 'Piano',
+  GUITAR: 'Guitar',
+  RESET: 'Reset',
+  SEARCHING: 'Searching…',
+  NO_RESULTS: 'No results found',
+  LOADING: 'Loading…',
+  DATA_UNAVAILABLE: 'Instrument data is unavailable',
+  LANGUAGE: 'Language',
+  MENU: 'Menu',
+  THEME: 'Theme',
+  DARK_THEME: 'Dark theme',
+  LIGHT_THEME: 'Light theme',
+  ERROR: 'Something went wrong',
+  ERROR_CODE: 'Error code',
+  RETRY: 'Try again',
 }
 
 export default en

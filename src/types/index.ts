@@ -130,6 +130,22 @@ export interface LocaleTexts {
   FOUR_CHORDS: string
   OTHERS: string
   TITLE?: string
+  INSTRUMENT: string
+  PIANO: string
+  GUITAR: string
+  RESET: string
+  SEARCHING: string
+  NO_RESULTS: string
+  LOADING: string
+  DATA_UNAVAILABLE: string
+  LANGUAGE: string
+  MENU: string
+  THEME: string
+  DARK_THEME: string
+  LIGHT_THEME: string
+  ERROR: string
+  ERROR_CODE: string
+  RETRY: string
 }
 
 // 共通のコンポーネントプロパティの型定義

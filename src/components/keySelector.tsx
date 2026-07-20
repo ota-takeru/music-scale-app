@@ -51,7 +51,10 @@ const KeySelector: React.FC<KeySelectorProps> = React.memo(
     }, [selectedKey])
 
     // aria-labelをメモ化
-    const ariaLabel = useMemo(() => label || 'キーを選択', [label])
+    const ariaLabel = useMemo(
+      () => label || t.SELECTED_KEY,
+      [label, t.SELECTED_KEY],
+    )
 
     // プレースホルダーテキストをメモ化
     const placeholderText = useMemo(() => {

@@ -71,7 +71,7 @@ const ScaleSelector: React.FC<ScaleSelectorProps> = React.memo(
           onChange={handleChange}
           className="selector-scale"
           value={scale}
-          aria-label="スケールを選択"
+          aria-label={t.SELECTED_SCALE}
           data-testid="scale-selector"
         >
           <option value="" hidden>

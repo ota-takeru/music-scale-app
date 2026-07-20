@@ -75,7 +75,7 @@ const ChordSelector: React.FC<ChordSelectorProps> = React.memo(
           onChange={handleChange}
           className="selector-scale"
           value={chord}
-          aria-label="コードを選択"
+          aria-label={t.SELECTED_CHORD}
           data-testid="chord-selector"
         >
           <option value="" hidden>

@@ -1,148 +1,138 @@
 'use client'
-import { GrLanguage } from 'react-icons/gr'
-import { IconContext } from 'react-icons/lib'
-import { RxHome } from 'react-icons/rx'
-import { SlMenu } from 'react-icons/sl'
+
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { useLocale } from '../hooks/useLocale'
-import { usePathname } from 'next/navigation'
+import type { FC } from 'react'
+import { FiHome, FiMenu, FiMoon, FiSun, FiX } from 'react-icons/fi'
+import { GrLanguage } from 'react-icons/gr'
+import { useLocale, useTheme, type Locale } from '../hooks/useLocale'
 import type { HeaderProps } from '../types'
 
-const Header: React.FC<HeaderProps> = ({
+const Header: FC<HeaderProps> = ({
   href = '/',
   title = 'Music Scale App',
 }) => {
-  const [isDisplay, setIsDisplay] = useState(false)
+  const [isLanguageOpen, setIsLanguageOpen] = useState(false)
   const [displayMenu, setDisplayMenu] = useState(true)
-
-  const handleClick = () => {
-    setIsDisplay(!isDisplay)
-  }
-
-  const handleMenu = () => {
-    setDisplayMenu(!displayMenu)
-  }
-
-  const { t } = useLocale()
-  const pathname = usePathname()
+  const { locale, setLocale, t } = useLocale()
+  const { theme, toggleTheme } = useTheme()
 
   useEffect(() => {
     const handleResize = () => {
-      const width = window.innerWidth
-      if (width < 1500) {
-        setDisplayMenu(false)
-      } else {
-        setDisplayMenu(true)
-      }
+      const shouldDisplayMenu = window.innerWidth >= 1500
+      setDisplayMenu(shouldDisplayMenu)
+      if (!shouldDisplayMenu) setIsLanguageOpen(false)
     }
     handleResize()
     window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    }
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
+  const handleLocaleChange = (nextLocale: Locale) => {
+    setLocale(nextLocale)
+    setIsLanguageOpen(false)
+  }
+
+  const handleMenuToggle = () => {
+    if (displayMenu) setIsLanguageOpen(false)
+    setDisplayMenu((isOpen) => !isOpen)
+  }
+
   return (
-    <header className="bg-white z-[6] w-full h-17-5 flex flex-row justify-between items-left">
+    <header className="site-header">
       <button
-        onClick={handleMenu}
-        className="fixed top-5 left-10 appearance-none bg-transparent border-none rounded-lg p-2.5 cursor-pointer z-[100]
-                   max-sm:fixed max-sm:left-2.5 max-sm:bg-white max-sm:active:bg-transparent"
+        type="button"
+        onClick={handleMenuToggle}
+        className="menu-toggle"
+        aria-label={t.MENU}
+        aria-expanded={displayMenu}
+        aria-controls="site-navigation"
       >
-        <IconContext.Provider value={{ size: '2em' }}>
-          <SlMenu />
-        </IconContext.Provider>
+        {displayMenu ? <FiX aria-hidden="true" /> : <FiMenu aria-hidden="true" />}
       </button>
 
-      <div
-        className={`bg-white fixed h-full w-64 overflow-hidden transition-all duration-200 ease-in-out 
-                      flex flex-col justify-end border-r border-gray-300 z-[5]
-                      ${
-                        displayMenu
-                          ? 'transform translate-x-0'
-                          : 'transform -translate-x-full'
-                      }`}
+      <aside
+        id="site-navigation"
+        className={`site-drawer ${displayMenu ? 'is-open' : ''}`}
+        aria-hidden={!displayMenu}
+        inert={!displayMenu}
       >
-        <ul
-          className={`p-0 mt-28 overflow-hidden transition-opacity duration-300 ease-in-out
-                       ${displayMenu ? 'opacity-100' : 'opacity-0'}`}
-        >
-          <Link href="/scaleSearch">
-            <li className="list-none text-xl text-gray-700 py-2.5 px-10 text-left no-underline border-b border-gray-300 hover:bg-gray-200">
-              {t.SCALE_TITLE}
-            </li>
+        <nav className="site-nav" aria-label={t.MENU}>
+          <Link href="/scaleSearch" className="site-nav-link">
+            {t.SCALE_TITLE}
           </Link>
-          <Link href="/chordSearch">
-            <li className="list-none text-xl text-gray-700 py-2.5 px-10 text-left no-underline border-b border-gray-300 hover:bg-gray-200">
-              {t.CHORD_TITLE}
-            </li>
+          <Link href="/chordSearch" className="site-nav-link">
+            {t.CHORD_TITLE}
           </Link>
-        </ul>
+        </nav>
 
-        <div className="mt-auto mb-5">
-          <ul
-            className={`${
-              isDisplay ? 'block' : 'hidden'
-            } p-2.5 mx-4 bg-gray-50 rounded border border-gray-300`}
+        <div className="site-drawer-actions">
+          <Link
+            href="/"
+            className="drawer-action"
+            aria-label={t.HOME_TITLE}
           >
-            <li className="list-none m-2.5">
-              <Link
-                href={pathname}
-                onClick={handleClick}
-                className="no-underline transition-all duration-1000 ease-in-out"
-              >
-                English
-              </Link>
-            </li>
-            <li className="list-none m-2.5">
-              <Link
-                href={pathname}
-                onClick={handleClick}
-                className="no-underline transition-all duration-1000 ease-in-out"
-              >
-                日本語
-              </Link>
-            </li>
-          </ul>
+            <FiHome aria-hidden="true" />
+          </Link>
 
-          <div
-            className={`flex items-center justify-center flex-row border-t border-gray-300 pt-2.5 
-                          transition-all duration-100 ease-in-out ${
-                            displayMenu ? 'opacity-100' : ''
-                          }`}
-          >
-            <div className="flex justify-center items-center ml-[20%] mr-auto rounded-lg w-15 h-15 hover:bg-gray-300">
-              <Link
-                href="/"
-                className="flex justify-center items-center w-full h-full m-0"
-              >
-                <IconContext.Provider value={{ size: '2em' }}>
-                  <RxHome />
-                </IconContext.Provider>
-              </Link>
-            </div>
-
+          <div className="language-control">
             <button
-              onClick={handleClick}
-              className="z-[100] border-none cursor-pointer bg-transparent select-none mr-[20%] ml-auto 
-                        rounded-lg w-15 h-15 hover:bg-gray-300"
+              type="button"
+              className="drawer-action"
+              onClick={() => setIsLanguageOpen((isOpen) => !isOpen)}
+              aria-label={t.LANGUAGE}
+              aria-haspopup="true"
+              aria-expanded={isLanguageOpen}
+              aria-controls="language-options"
             >
-              <IconContext.Provider value={{ size: '2em' }}>
-                <GrLanguage />
-              </IconContext.Provider>
+              <GrLanguage aria-hidden="true" />
             </button>
+            {isLanguageOpen && (
+              <div
+                id="language-options"
+                className="language-popover"
+                role="group"
+                aria-label={t.LANGUAGE}
+              >
+                <button
+                  type="button"
+                  className={`language-option ${locale === 'ja' ? 'is-active' : ''}`}
+                  onClick={() => handleLocaleChange('ja')}
+                  aria-pressed={locale === 'ja'}
+                >
+                  日本語
+                </button>
+                <button
+                  type="button"
+                  className={`language-option ${locale === 'en' ? 'is-active' : ''}`}
+                  onClick={() => handleLocaleChange('en')}
+                  aria-pressed={locale === 'en'}
+                >
+                  English
+                </button>
+              </div>
+            )}
           </div>
-        </div>
-      </div>
 
-      <div className="ml-72 text-3xl text-gray-700 my-2.5 no-underline max-[1500px]:ml-20 max-sm:mx-auto max-sm:text-center">
-        <Link
-          href={href}
-          className="text-gray-700 my-2.5 no-underline active:text-white"
-        >
-          {title}
-        </Link>
+          <button
+            type="button"
+            className="drawer-action"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? t.LIGHT_THEME : t.DARK_THEME}
+            aria-pressed={theme === 'dark'}
+            title={theme === 'dark' ? t.LIGHT_THEME : t.DARK_THEME}
+          >
+            {theme === 'dark' ? (
+              <FiSun aria-hidden="true" />
+            ) : (
+              <FiMoon aria-hidden="true" />
+            )}
+          </button>
+        </div>
+      </aside>
+
+      <div className="site-title">
+        <Link href={href}>{title}</Link>
       </div>
     </header>
   )

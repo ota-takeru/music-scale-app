@@ -1,6 +1,8 @@
+'use client'
 import React from 'react'
 import { AiOutlineLoading3Quarters } from 'react-icons/ai'
 import { IconContext } from 'react-icons'
+import { useLocale } from '../../hooks/useLocale'
 
 interface LoadingSpinnerProps {
   message?: string
@@ -10,11 +12,13 @@ interface LoadingSpinnerProps {
 }
 
 const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
-  message = '読み込み中...',
+  message,
   size = 'md',
   className = '',
   color = '#007bff',
 }) => {
+  const { t } = useLocale()
+  const resolvedMessage = message ?? t.LOADING
   const sizeClasses = {
     sm: 'h-12',
     md: 'h-20',
@@ -40,7 +44,7 @@ const LoadingSpinner: React.FC<LoadingSpinnerProps> = ({
       <IconContext.Provider value={{ color, size: iconSizes[size] }}>
         <AiOutlineLoading3Quarters className="animate-spin" />
       </IconContext.Provider>
-      <span className={`ml-3 ${textSizes[size]}`}>{message}</span>
+      <span className={`ml-3 ${textSizes[size]}`}>{resolvedMessage}</span>
     </div>
   )
 }

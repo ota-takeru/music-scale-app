@@ -3,9 +3,11 @@ import PianoAppearance from './pianoAppearance'
 import { useReset } from '../hooks/useReset'
 import ResetButton from './resetButton'
 import type { PianoRollProps } from '../types'
+import { useLocale } from '../hooks/useLocale'
 
 const PianoRoll: React.FC<PianoRollProps> = (props) => {
   const { musicData, setMusicData, className = '' } = props
+  const { t } = useLocale()
 
   const [primaryKey, setPrimaryKey] = useState<string[]>([
     'false',
@@ -48,24 +50,26 @@ const PianoRoll: React.FC<PianoRollProps> = (props) => {
   if (!musicData) {
     return (
       <div
-        className={`flex mb-5 max-sm:flex-col max-sm:items-center max-sm:m-0 ${className}`}
+        className={`instrument-layout ${className}`}
       >
-        <div className="piano-container">
-          <div className="text-center p-4 text-gray-500">
-            ピアノデータが読み込まれていません
+        <div className="instrument-visual">
+          <div className="piano-container">
+            <div className="text-center p-4 text-gray-500">
+              {t.DATA_UNAVAILABLE}
+            </div>
           </div>
         </div>
-        <ResetButton reset={handleReset} />
+        <ResetButton reset={handleReset} className="instrument-reset" />
       </div>
     )
   }
 
   return (
-    <div
-      className={`flex mb-5 max-sm:flex-col max-sm:items-center max-sm:m-0 ${className}`}
-    >
-      <PianoAppearance {...pianoProps} />
-      <ResetButton reset={handleReset} />
+    <div className={`instrument-layout ${className}`}>
+      <div className="instrument-visual">
+        <PianoAppearance {...pianoProps} />
+      </div>
+      <ResetButton reset={handleReset} className="instrument-reset" />
     </div>
   )
 }

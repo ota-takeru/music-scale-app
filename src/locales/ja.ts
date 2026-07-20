@@ -17,8 +17,7 @@ const ja: LocaleTexts = {
   MAJOR_PENTATONIC: 'メジャーペンタトニック',
   MINOR_PENTATONIC: 'マイナーペンタトニック',
   BLUES: 'ブルース',
-  DESCRIPTION_SCALE:
-  '音階やのハーモニーの中心となるスケール名と構成音の両方から、スケールを検索することができます。インタラクティブなデザインにより、メロディーや和音の基盤となるスケールの構成音を視覚的に深く理解することができます。',
+  DESCRIPTION_SCALE: 'スケール名や構成音から検索できます。',
   DESCRIPTION_CHORD:
     '和音の名称や構成音の両方から、コードを検索することができます。インタラクティブなデザインにより、リズムやメロディに彩りを添えるコードの構成音を視覚的に深く理解することができます。',
   KEYWORDS: 'スケール,コード,検索,ピアノ,ギター,音楽,音階,メジャー,マイナー',
@@ -27,6 +26,23 @@ const ja: LocaleTexts = {
   THREE_CHORDS: '三和音',
   FOUR_CHORDS: '四和音',
   OTHERS: 'その他',
+  TITLE: 'MUSIC-TOOL',
+  INSTRUMENT: '楽器',
+  PIANO: 'ピアノ',
+  GUITAR: 'ギター',
+  RESET: 'リセット',
+  SEARCHING: '検索中…',
+  NO_RESULTS: '結果が見つかりませんでした',
+  LOADING: '読み込み中…',
+  DATA_UNAVAILABLE: 'データを読み込めませんでした',
+  LANGUAGE: '言語',
+  MENU: 'メニュー',
+  THEME: 'テーマ',
+  DARK_THEME: 'ダークテーマ',
+  LIGHT_THEME: 'ライトテーマ',
+  ERROR: 'エラーが発生しました',
+  ERROR_CODE: 'エラーコード',
+  RETRY: '再試行',
 }
 
 export default ja

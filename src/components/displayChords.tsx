@@ -145,7 +145,7 @@ const DisplayChords: React.FC<DisplayChordsProps> = ({ array }) => {
   }
 
   if (isLoading) {
-    return <LoadingSpinner message="コードデータを読み込み中..." />
+    return <LoadingSpinner message={`${t.CHORD_TITLE} ${t.LOADING}`} />
   }
 
   const renderChordGroup = (chords: ChordGroup, title: string) => (
