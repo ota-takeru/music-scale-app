@@ -7,6 +7,7 @@ import ja from '../locales/ja'
 import { LocaleProvider } from '../hooks/useLocale'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://music-scale-app.vercel.app'),
   title: 'Music Scale App',
   description: ja.DESCRIPTIONS_HOME,
   keywords: ja.KEYWORDS,
